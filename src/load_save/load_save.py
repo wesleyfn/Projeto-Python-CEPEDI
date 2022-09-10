@@ -36,6 +36,7 @@ def save_pessoa(pessoa) -> dict:
                                "bairro": pessoa.endereco.bairro,
                                "area": pessoa.endereco.area}
                   }
+    return new_pessoa
 
 def save_paciente(paciente: Paciente) -> None:
     pacientes = load_pacientes()

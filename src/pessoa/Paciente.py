@@ -3,7 +3,7 @@ from src.pessoa.Pessoa import Pessoa
 from src.pessoa.Endereco import Endereco
 
 class Paciente(Pessoa):
-    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime, 
+    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  telefone: str, altura: float, peso: float, endereco: Endereco, 
                  nro_sus: int = None):
 

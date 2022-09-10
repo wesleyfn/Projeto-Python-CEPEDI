@@ -1,12 +1,11 @@
-import datetime
 from src.pessoa.Pessoa import Pessoa
 from src.pessoa.Endereco import Endereco
 
 class Especialista(Pessoa):
     # Construtor
-    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime, 
+    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  endereco: Endereco, telefone: str, cro: int, especialidade: str,
-                 data_engresso: datetime):
+                 data_engresso: str):
 
         # Construtor da classe herdada (Pessoa)
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
@@ -23,7 +22,7 @@ class Especialista(Pessoa):
         return self.__cro
 
     @property
-    def data_engresso(self) -> datetime:
+    def data_engresso(self) -> str:
         return self.__data_engresso
 
     @property
@@ -36,11 +35,11 @@ class Especialista(Pessoa):
         self.__cro = cro_setter
 
     @data_engresso.setter
-    def data_engresso(self, data_engresso_setter: datetime):
+    def data_engresso(self, data_engresso_setter: str):
         self.__data_engresso = data_engresso_setter
 
     @especialidade.setter
-    def especialidade(self, especialidade_setter: datetime):
+    def especialidade(self, especialidade_setter: str):
         self.__especialidade = especialidade_setter
 
 

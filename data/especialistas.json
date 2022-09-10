@@ -1,1 +1,16 @@
-[]
+[
+ {
+  "nome": "matheus",
+  "cpf": "15e1e",
+  "sexo": "M",
+  "data_nascimento": "07/06/2000",
+  "telefone": "1e515151",
+  "endereco": {
+   "endereco": "rua do crime",
+   "bairro": "criminolandia",
+   "area": "rural"
+  },
+  "cro": 1235,
+  "especialidade": "matar"
+ }
+]

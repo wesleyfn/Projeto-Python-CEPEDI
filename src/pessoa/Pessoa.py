@@ -1,9 +1,8 @@
-import datetime
 from abc import ABC, abstractmethod
 from src.pessoa.Endereco import Endereco
 
 class Pessoa(ABC):
-    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime,
+    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  endereco: Endereco, telefone: str):
         self._nome = nome
         self._cpf = cpf
@@ -37,11 +36,11 @@ class Pessoa(ABC):
         self._sexo = sexo_setter
 
     @property
-    def data_nascimento(self) -> datetime:
+    def data_nascimento(self) -> str:
         return self._data_nascimento
 
     @data_nascimento.setter
-    def data_nascimento(self, data_nascimento_setter: datetime) -> None:
+    def data_nascimento(self, data_nascimento_setter: str) -> None:
         self._data_nascimento = data_nascimento_setter
 
     @property
