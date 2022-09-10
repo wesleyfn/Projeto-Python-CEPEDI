@@ -2,11 +2,11 @@ import datetime
 from abc import ABC
 
 class Pessoa(ABC):
-    def __init__(self, nome_init: str, cpf_init: str, sexo: str, data_nascimento: datetime, telefone: str) -> None:
+    def __init__(self, nome_init: str, cpf_init: str, sexo_init: str, data_nascimento_init: datetime, telefone: str) -> None:
         self.__nome = nome_init
         self.__cpf = cpf_init
-        self.__sexo = sexo
-        self.__data_nascimento = data_nascimento
+        self.__sexo = sexo_init
+        self.__data_nascimento = data_nascimento_init
         self.__telefone = telefone
 
 @property
