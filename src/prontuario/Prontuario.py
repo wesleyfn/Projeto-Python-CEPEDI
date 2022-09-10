@@ -5,10 +5,10 @@ from ..pessoa.Paciente import Paciente
 from ..pessoa.Responsavel import Responsavel
 
 class Prontuario:
-    def __init__(self, paciente: Paciente = None, especialista: Especialista = None, responsavel: Responsavel = None):
-        self.__especialista = especialista
-        self.__responsavel = responsavel
-        self.__paciente = paciente
+    def __init__(self):
+        self.__especialista = None
+        self.__responsavel = None
+        self.__paciente = None
         self.__patologia = None
         self.__procedimento = None
         self.__data = None
@@ -71,3 +71,4 @@ class Prontuario:
         self.__consulta = consulta_setter
 
     def inicialize_prontuario(self):
+        pass
