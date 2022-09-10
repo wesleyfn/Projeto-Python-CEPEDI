@@ -1,5 +1,3 @@
-from os import execvpe
-from zlib import DEF_BUF_SIZE
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Endereco import Endereco
@@ -72,6 +70,25 @@ def menu_cadastro():
             case 0:
                 return
 
+def find_people(nome_arquivo_json, filtro_busca):
+    especialistas = load_save.load_json(nome_arquivo_json)
+    matchs = []
+
+    for especialista in especialistas:
+        find = 1
+        for key, value in filtro_busca.items():
+            if value is None:
+                continue
+
+            if especialista[key] != value:
+                find = 0
+                break
+
+        if find:
+            matchs.append(especialista)
+
+    return matchs
+
 def main_menu():
     loop_condition = True
     while loop_condition:
@@ -88,7 +105,15 @@ def main_menu():
             case 1:
                 menu_cadastro()
             case 2:
-                pass
+                nome = input("Digite o nome: ")
+                nome = nome if nome else None
+
+                cro = input("Digite o cro: ")
+                cro = cro if cro else None
+
+                filtro_busca = {"cro": cro, "nome": nome}
+                people = find_people("especialista", filtro_busca)
+
             case 3:
                 pass
             case 4:
