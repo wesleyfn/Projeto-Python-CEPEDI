@@ -1,6 +1,6 @@
 import datetime
 from ..pessoa.Especialista import Especialista
-from ..pessoa.Paciente import Paciente
+from src.pessoa.Paciente import Paciente
 from ..pessoa.Responsavel import Responsavel
 
 class Prontuario:

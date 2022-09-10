@@ -1,6 +1,6 @@
 import datetime
-from Pessoa import Pessoa
-from Endereco import Endereco
+from src.pessoa.Pessoa import Pessoa
+from src.pessoa.Endereco import Endereco
 
 class Paciente(Pessoa):
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime, 
@@ -39,3 +39,6 @@ class Paciente(Pessoa):
     @nro_sus.setter
     def nro_sus(self, nro_sus_setter: int) -> None:
         self.__nro_sus = nro_sus_setter
+
+    def __str__(self):
+        pass

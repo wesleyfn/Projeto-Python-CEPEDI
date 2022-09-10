@@ -1,6 +1,6 @@
 import datetime
-from Pessoa import Pessoa
-from Endereco import Endereco
+from src.pessoa.Pessoa import Pessoa
+from src.pessoa.Endereco import Endereco
 
 class Especialista(Pessoa):
     # Construtor
