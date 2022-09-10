@@ -10,17 +10,7 @@ class Responsavel(Pessoa):
 
         # Construtor da classe herdade
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
-        self.__grau_parentesco = grau_parentesco
-
-    # Get
-    @property
-    def grau_parentesco(self) -> str:
-        return self.__grau_parentesco
-
-    # Set
-    @grau_parentesco.setter 
-    def grau_parentesco(self, grau_parentesto: str) -> None:
-        self.__grau_parentesco = grau_parentesto
+        self.grau_parentesco = grau_parentesco
 
     def __str__(self):
         pass

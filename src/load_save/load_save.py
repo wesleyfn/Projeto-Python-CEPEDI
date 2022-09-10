@@ -20,7 +20,7 @@ def load_json(name_json):
 def save_paciente(paciente: Paciente) -> None:
     pacientes = load_json("pacientes") if None else []
     dict_paciente = paciente.__dict__
-    dict_paciente['_endereco'] = paciente.endereco.__dict__
+    dict_paciente['endereco'] = paciente.endereco.__dict__
     pacientes.append(dict_paciente)
 
     path = os.path.abspath("../data/pacientes.json")
@@ -30,7 +30,7 @@ def save_paciente(paciente: Paciente) -> None:
 def save_especialista(especialista: Especialista):
     especialistas = load_json("especialistas") if None else []
     dict_especialista = especialista.__dict__
-    dict_especialista['_endereco'] = especialista.endereco.__dict__
+    dict_especialista['endereco'] = especialista.endereco.__dict__
     especialistas.append(dict_especialista)
 
     path = os.path.abspath("../data/especialistas.json")
@@ -40,7 +40,7 @@ def save_especialista(especialista: Especialista):
 def save_prontuario(prontuario: Prontuario):
     prontuarios = load_json("prontuarios") if None else []
     dict_prontuario = prontuario.__dict__
-    dict_prontuario['_especialista'] = prontuario.especialista.__dict__
+    dict_prontuario['especialista'] = prontuario.especialista.__dict__
     prontuarios.append(dict_prontuario)
 
     path = os.path.abspath("../data/prontuarios.json")
