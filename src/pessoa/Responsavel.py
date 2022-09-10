@@ -1,5 +1,6 @@
 import datetime
-from Pessoa import Pessoa, Endereco
+from Pessoa import Pessoa
+from Endereco import Endereco
 
 class Responsavel(Pessoa):
     def __init__(self, nome_init: str, cpf_init: str, sexo: str, data_nascimento: datetime, telefone: str, altura: float, peso: float, sexo_init: str, data_nascimento_init: datetime, endereco_init: Endereco, telefone_init: str, grau_parentesco: str):
