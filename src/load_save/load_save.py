@@ -17,7 +17,6 @@ def load_json(name_json):
 
 def save_paciente(paciente: Paciente) -> None:
     pacientes = load_json("pacientes") if not None else []
-    print(pacientes)
     dict_paciente = paciente.__dict__
     dict_paciente['endereco'] = paciente.endereco.__dict__
     pacientes.append(dict_paciente)

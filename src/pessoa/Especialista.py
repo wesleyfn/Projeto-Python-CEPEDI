@@ -14,7 +14,7 @@ class Especialista(Pessoa):
         self.especialidade = especialidade
 
     def __str__(self) -> str:
-        pass
+        return f"Nome: {self.nome}, CRO: {self.cro}, Especialidade: {self.especialidade}"
     
     # Gets
    

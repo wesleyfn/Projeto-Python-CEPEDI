@@ -1,3 +1,5 @@
+import json
+
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Endereco import Endereco
@@ -42,7 +44,7 @@ def menu_cadastro():
     while loop_condition:
         print(" 1. Cadastrar Especialista\n 2. Cadastrar Paciente\n 3. Cadastrar Prontuáio\n 0. Voltar")
         op = opcao('i', " > Opção:")
-        print("\n")
+        print("")
 
         match op:
             case 1:
@@ -50,7 +52,7 @@ def menu_cadastro():
                 cro = opcao('i', " > Digite o CRO: ")
                 data_engresso = opcao('s', " > Digite a data de engresso dd/mm/aa: ")
                 especialidade = opcao('s', " > Digite a especialidade: ")
-                print("\n")
+                print("")
                 especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, telefone, cro, especialidade,
                                             data_engresso)
 
@@ -83,7 +85,7 @@ def find_people(nome_arquivo_json, filtro_busca):
             if value is None:
                 continue
 
-            if person[key].lower() != value.lower():
+            if not value.isnumeric() and person[key].lower() != value.lower():
                 find = 0
                 break
 
@@ -116,15 +118,31 @@ def main_menu():
 
                 cpf = input("Digite o cpf: ")
                 cpf = cpf if cpf else None
+                print("")
 
-                filtro_busca = {"cro": cro, "nome": nome}
+                filtro_busca = {"cro": cro, "nome": nome, "cpf": cpf}
                 people = find_people("especialistas", filtro_busca)
 
-                if people:
-                    for person in people:
-                        print(person['nome'])
+                if not people:
+                    print("Especialista nao encontrado.")
+                else:
+                    for i, person in enumerate(people, 1):
+                        person = Especialista(person['nome'],
+                                              person['cpf'],
+                                              person['sexo'],
+                                              person['data_nascimento'],
+                                              person['endereco'],
+                                              person['telefone'],
+                                              person['cro'],
+                                              person['especialidade'],
+                                              person['data_engresso'])
+                        print(f"{i}-{person}")
+
+                    #Dar opção de  Selecionar Especialista por Indice e printar o especialista
+                    print("")
 
             case 3:
+                #Fazer o processo do Case 2 para o Case 3
                 pass
             case 4:
                 pass
