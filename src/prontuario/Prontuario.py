@@ -1,5 +1,4 @@
 import datetime
-
 from ..pessoa.Especialista import Especialista
 from ..pessoa.Paciente import Paciente
 from ..pessoa.Responsavel import Responsavel

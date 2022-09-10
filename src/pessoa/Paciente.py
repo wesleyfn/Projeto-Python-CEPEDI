@@ -3,11 +3,11 @@ from Pessoa import Pessoa
 from Endereco import Endereco
 
 class Paciente(Pessoa):
-    def __init__(self, nome_init: str, cpf_init: str, sexo: str, data_nascimento: datetime, telefone: str,
-                 altura: float, peso: float, sexo_init: str, data_nascimento_init: datetime, endereco_init: Endereco,
-                 telefone_init: str, nro_sus: int = None):
+    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime, 
+                 telefone: str, altura: float, peso: float, endereco: Endereco, 
+                 nro_sus: int = None):
 
-        super().__init__(nome_init, cpf_init, sexo_init, data_nascimento_init, endereco_init, telefone_init)
+        super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
         self.__altura = altura
         self.__peso = peso
         self.__nro_sus = nro_sus
@@ -30,12 +30,12 @@ class Paciente(Pessoa):
 
     @altura.setter
     def altura(self, altura_setter: float) -> None:
-        self.__altura = float(altura_setter)
+        self.__altura = altura_setter
 
     @peso.setter
     def peso(self, peso_setter: float) -> None:
-        self.__peso = float(peso_setter)
+        self.__peso = peso_setter
 
     @nro_sus.setter
     def nro_sus(self, nro_sus_setter: int) -> None:
-        self.__nro_sus = int(nro_sus_setter)
+        self.__nro_sus = nro_sus_setter

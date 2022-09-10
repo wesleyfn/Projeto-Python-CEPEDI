@@ -3,13 +3,13 @@ from abc import ABC, abstractmethod
 from Endereco import Endereco
 
 class Pessoa(ABC):
-    def __init__(self, nome_init: str, cpf_init: str, sexo_init: str, data_nascimento_init: datetime,
-                 endereco_init: Endereco, telefone_init: str):
-        self.__nome = nome_init
-        self.__cpf = cpf_init
-        self.__sexo = sexo_init
-        self.__data_nascimento = data_nascimento_init
-        self.__endereco = endereco_init
+    def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: datetime,
+                 endereco: Endereco, telefone: str):
+        self.__nome = nome
+        self.__cpf = cpf
+        self.__sexo = sexo
+        self.__data_nascimento = data_nascimento
+        self.__endereco = endereco
         self.__telefone = telefone
 
 @property
@@ -41,7 +41,7 @@ def data_nascimento(self) -> datetime:
     return self.__data_nascimento
 
 @data_nascimento.setter
-def data_nascimento(self, data_nascimento_setter) -> None:
+def data_nascimento(self, data_nascimento_setter: datetime) -> None:
     self.__data_nascimento = data_nascimento_setter
 
 @property
@@ -49,7 +49,7 @@ def endereco(self) -> Endereco:
     return self.__endereco
 
 @endereco.setter
-def endereco(self, endereco_setter) -> None:
+def endereco(self, endereco_setter: Endereco) -> None:
     self.__endereco = endereco_setter
 
 @property
@@ -57,7 +57,7 @@ def telefone(self) -> str:
     return self.__telefone
 
 @telefone.setter
-def telefone(self, telefone_setter) -> None:
+def telefone(self, telefone_setter: str) -> None:
     self.__telefone = telefone_setter
 
 @abstractmethod
