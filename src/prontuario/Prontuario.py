@@ -1,4 +1,3 @@
-import datetime
 from ..pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from ..pessoa.Responsavel import Responsavel
@@ -34,7 +33,7 @@ class Prontuario:
         return self.__procedimento
 
     @property
-    def data(self) -> datetime:
+    def data(self) -> str:
         return self.__data
 
     @property
