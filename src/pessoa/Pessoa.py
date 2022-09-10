@@ -1,8 +1,8 @@
 import datetime
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class Pessoa(ABC):
-    def __init__(self, nome_init: str, cpf_init: str, sexo_init: str, data_nascimento_init: datetime, telefone: str) -> None:
+    def __init__(self, nome_init: str, cpf_init: str, sexo_init: str, data_nascimento_init: datetime, telefone: str):
         self.__nome = nome_init
         self.__cpf = cpf_init
         self.__sexo = sexo_init
@@ -40,5 +40,6 @@ def data_nascimento(self) -> datetime:
 @data_nascimento.setter
 def data_nascimento(self, data_nascimento_setter) -> None:
     self.__data_nascimento = data_nascimento_setter
-
-
+@abstractmethod
+def __str__(self):
+    pass
