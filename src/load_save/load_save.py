@@ -1,11 +1,6 @@
-import os
-import json
-import datetime
-from src.pessoa.Pessoa import Pessoa
-from src.pessoa.Endereco import Endereco
+import os, json
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
-from src.pessoa.Responsavel import Responsavel
 from src.prontuario.Prontuario import Prontuario
 
 def load_json(name_json):

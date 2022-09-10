@@ -1,4 +1,3 @@
-import datetime
 from src.pessoa.Pessoa import Pessoa
 from src.pessoa.Endereco import Endereco
 
