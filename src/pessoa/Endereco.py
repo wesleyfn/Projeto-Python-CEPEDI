@@ -1,6 +1,6 @@
 class Endereco:
     # Construtor
-    def __init__(self, endereco:str, bairro:str, area:str):
+    def __init__(self, endereco: str, bairro: str, area: str):
         self.__endereco = endereco
         self.__bairro = bairro
         self.__area = area
