@@ -74,6 +74,9 @@ def find_people(nome_arquivo_json, filtro_busca):
     people = load_save.load_json(nome_arquivo_json)
     matchs = []
 
+    if not people:
+        return []
+
     for person in people:
         find = 1
         for key, value in filtro_busca.items():
@@ -114,11 +117,12 @@ def main_menu():
                 cpf = input("Digite o cpf: ")
                 cpf = cpf if cpf else None
 
-                filtro_busca = {"_cro": cro, "_nome": nome}
+                filtro_busca = {"cro": cro, "nome": nome}
                 people = find_people("especialistas", filtro_busca)
 
-                for person in people:
-                    print(person['_nome'])
+                if people:
+                    for person in people:
+                        print(person['nome'])
 
             case 3:
                 pass
