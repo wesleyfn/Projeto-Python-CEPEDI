@@ -1,5 +1,5 @@
 import datetime
-from Pessoa import Pessoa
+from pessoa import Pessoa
 
 class Responsavel(Pessoa):
     def __init__(self, nome_init: str, cpf_init: str, sexo: str, data_nascimento: datetime, telefone: str, grau_parentesco: str):
