@@ -1,6 +1,5 @@
-import datetime
-import os.path
 
+import os.path
 from pessoa.Endereco import Endereco
 from pessoa.Paciente import Paciente
 from menu import menu

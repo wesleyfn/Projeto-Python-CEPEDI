@@ -71,21 +71,24 @@ def menu_cadastro():
                 return
 
 def find_people(nome_arquivo_json, filtro_busca):
-    especialistas = load_save.load_json(nome_arquivo_json)
+    people = load_save.load_json(nome_arquivo_json)
     matchs = []
 
-    for especialista in especialistas:
+    if not people:
+        return people
+
+    for person in people:
         find = 1
         for key, value in filtro_busca.items():
             if value is None:
                 continue
 
-            if especialista[key] != value:
+            if person[key].lower() != value.lower():
                 find = 0
                 break
 
         if find:
-            matchs.append(especialista)
+            matchs.append(person)
 
     return matchs
 
@@ -106,13 +109,19 @@ def main_menu():
                 menu_cadastro()
             case 2:
                 nome = input("Digite o nome: ")
-                nome = nome if nome else None
+                nome = nome.lower() if nome else None
 
                 cro = input("Digite o cro: ")
                 cro = cro if cro else None
 
+                cpf = input("Digite o cpf: ")
+                cpf = cpf if cpf else None
+
                 filtro_busca = {"cro": cro, "nome": nome}
-                people = find_people("especialista", filtro_busca)
+                people = find_people("especialistas", filtro_busca)
+
+                for person in people:
+                    print(person['nome'])
 
             case 3:
                 pass
