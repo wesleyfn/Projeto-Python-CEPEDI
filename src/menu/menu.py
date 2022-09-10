@@ -30,7 +30,7 @@ def menu_cadastro():
                 cro = int(input(" > Digite o CRO: "))
                 data_engresso = input(" > Digite a data de engresso dd/mm/aa: ")
                 especialidade = input(" > Digite a especialidade: ")
-                print("\n\n")
+                print("\n")
                 especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, telefone, cro, especialidade,
                                             data_engresso)
 
@@ -40,7 +40,7 @@ def menu_cadastro():
                 altura = float(input(" > Digite a altura: "))
                 peso = float(input(" > Digite o peso: "))
                 nro_sus = int(input(" > Digite o número do SUS: "))
-                print("\n\n")
+                print("\n")
                 paciente = Paciente(nome, cpf, sexo, data_nascimento, telefone, altura, peso, endereco, nro_sus)
                 load_save.save_paciente(paciente)
             case 3:
