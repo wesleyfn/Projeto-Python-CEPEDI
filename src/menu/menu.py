@@ -14,7 +14,7 @@ def opcao(tipo: str, string: str):
                     x = float(input(string))
                 case 's':
                     x = input(string)
-        except TypeError:
+        except:
             match tipo:
                 case 'i':
                     print('\n > Digite um número inteiro!\n')
@@ -73,9 +73,6 @@ def menu_cadastro():
 def find_people(nome_arquivo_json, filtro_busca):
     people = load_save.load_json(nome_arquivo_json)
     matchs = []
-
-    if not people:
-        return people
 
     for person in people:
         find = 1

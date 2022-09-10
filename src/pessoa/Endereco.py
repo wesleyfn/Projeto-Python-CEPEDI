@@ -1,9 +1,9 @@
 class Endereco:
     # Construtor
     def __init__(self, endereco: str, bairro: str, area: str):
-        self.__endereco = endereco
-        self.__bairro = bairro
-        self.__area = area
+        self._endereco = endereco
+        self._bairro = bairro
+        self._area = area
     
     def __str__(self) -> str:
         pass
@@ -11,26 +11,26 @@ class Endereco:
     # Gets
     @property
     def endereco(self) -> str:
-        return self.__endereco
+        return self._endereco
 
     @property
     def bairro(self) -> str:
-        return self.__bairro
+        return self._bairro
     
     @property
     def area(self) -> str:
-        return self.__area
+        return self._area
     
     # Sets
     @endereco.setter
     def endereco(self, endereco_setter: str) -> None:
-        self.__endereco = endereco_setter
+        self._endereco = endereco_setter
     
     @bairro.setter
     def bairro(self, bairro_setter: str) -> None:
-        self.__bairro = bairro_setter
+        self._bairro = bairro_setter
     
     @area.setter
     def area(self, area_setter: str) -> None:
-        self.__endereco = area_setter
+        self._endereco = area_setter
     

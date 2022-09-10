@@ -8,9 +8,8 @@ from src.pessoa.Paciente import Paciente
 from src.pessoa.Responsavel import Responsavel
 from src.prontuario.Prontuario import Prontuario
 
-def load_json(name_json_file):
-    path = os.path.abspath(f"../data/{name_json_file}.json")
-
+def load_json(name_json):
+    path = os.path.abspath(f"../data/{name_json}.json")
     try:
         with open(path, 'r', encoding='utf-8') as json_file:
             return json.load(json_file)
@@ -18,37 +17,11 @@ def load_json(name_json_file):
         with open(path, 'w', encoding='utf-8') as json_file:
             return None
 
-def create_dict_pessoa(pessoa) -> dict:
-    new_pessoa = {"nome": pessoa.nome,
-                  "cpf": pessoa.cpf,
-                  "sexo": pessoa.sexo,
-                  "data_nascimento": pessoa.data_nascimento,
-                  "telefone": pessoa.telefone,
-                  "endereco": {"endereco": pessoa.endereco.endereco,
-                               "bairro": pessoa.endereco.bairro,
-                               "area": pessoa.endereco.area}
-                  }
-    return new_pessoa
-
-def create_dict_paciente(dict_pessoa, paciente) -> dict:
-    dict_pessoa['altura'] = paciente.altura
-    dict_pessoa['peso'] = paciente.peso
-    dict_pessoa['nro_sus'] = paciente.nro_sus
-
-    return dict_pessoa
-
-def create_dict_especialista(dict_pessoa, especialista) -> dict:
-    dict_pessoa['cro'] = especialista.cro
-    dict_pessoa['especialidade'] = especialista.especialidade
-
-    return dict_pessoa
-
 def save_paciente(paciente: Paciente) -> None:
     pacientes = load_json("pacientes") if None else []
-    new_paciente = create_dict_pessoa(paciente)
-    new_paciente = create_dict_paciente(new_paciente, paciente)
-
-    pacientes.append(new_paciente)
+    dict_paciente = paciente.__dict__
+    dict_paciente['_endereco'] = paciente.endereco.__dict__
+    pacientes.append(dict_paciente)
 
     path = os.path.abspath("../data/pacientes.json")
     with open(path, 'w', encoding='utf-8') as json_file:
@@ -56,10 +29,9 @@ def save_paciente(paciente: Paciente) -> None:
 
 def save_especialista(especialista: Especialista):
     especialistas = load_json("especialistas") if None else []
-    new_especialista = create_dict_pessoa(especialista)
-    new_especialista = create_dict_especialista(new_especialista, especialista)
-
-    especialistas.append(new_especialista)
+    dict_especialista = especialista.__dict__
+    dict_especialista['_endereco'] = especialista.endereco.__dict__
+    especialistas.append(dict_especialista)
 
     path = os.path.abspath("../data/especialistas.json")
     with open(path, 'w', encoding='utf-8') as json_file:
@@ -67,26 +39,9 @@ def save_especialista(especialista: Especialista):
 
 def save_prontuario(prontuario: Prontuario):
     prontuarios = load_json("prontuarios") if None else []
-
-    dict_especialista = create_dict_pessoa(prontuario.especialista)
-    dict_especialista = create_dict_especialista(dict_especialista, prontuario.especialista)
-
-    dict_paciente = create_dict_pessoa(prontuario.paciente)
-    dict_paciente = create_dict_paciente(dict_especialista, prontuario.paciente)
-
-    dict_responsavel = create_dict_pessoa(prontuario.responsavel)
-    dict_responsavel["grau_parentesco"] = prontuario.responsavel.grau_parentesco
-
-    new_prontuario = {"paciente": dict_paciente,
-                      "responsavel": dict_responsavel,
-                      "data": prontuario.data,
-                      "consulta": prontuario.consulta,
-                      "patologia": prontuario.patologia,
-                      "procedimento": prontuario.procedimento,
-                      "especialista": dict_especialista
-                      }
-
-    prontuarios.append(new_prontuario)
+    dict_prontuario = prontuario.__dict__
+    dict_prontuario['_especialista'] = prontuario.especialista.__dict__
+    prontuarios.append(dict_prontuario)
 
     path = os.path.abspath("../data/prontuarios.json")
     with open(path, 'w', encoding='utf-8') as json_file:

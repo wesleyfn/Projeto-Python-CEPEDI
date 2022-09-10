@@ -1,5 +1,10 @@
-
+from ctypes import addressof
+import datetime
+import numbers
 import os.path
+from turtle import numinput
+from unicodedata import numeric
+
 from pessoa.Endereco import Endereco
 from pessoa.Paciente import Paciente
 from menu import menu

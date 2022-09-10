@@ -8,37 +8,37 @@ class Paciente(Pessoa):
                  nro_sus: int = None):
 
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
-        self.__altura = altura
-        self.__peso = peso
-        self.__nro_sus = nro_sus
+        self._altura = altura
+        self._peso = peso
+        self._nro_sus = nro_sus
 
     @property
     def imc(self) -> float:
-        return self.__peso / (self.__altura ** 2)
+        return self._peso / (self.__altura ** 2)
 
     @property
     def altura(self) -> float:
-        return self.__altura
+        return self._altura
 
     @property
     def peso(self) -> float:
-        return self.__peso
-
+        return self._peso
+    
     @property
     def nro_sus(self) -> int:
-        return self.__nro_sus
+        return self._nro_sus
 
     @altura.setter
     def altura(self, altura_setter: float) -> None:
-        self.__altura = altura_setter
+        self._altura = altura_setter
 
     @peso.setter
     def peso(self, peso_setter: float) -> None:
-        self.__peso = peso_setter
+        self._peso = peso_setter
 
     @nro_sus.setter
     def nro_sus(self, nro_sus_setter: int) -> None:
-        self.__nro_sus = nro_sus_setter
+        self._nro_sus = nro_sus_setter
 
     def __str__(self):
         pass
