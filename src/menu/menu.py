@@ -71,50 +71,21 @@ def menu_cadastro():
                 return
 
 def find_people(nome_arquivo_json, filtro_busca):
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    especialistas = load_save.load_json(nome_arquivo_json)
-    matchs = []
-
-    for especialista in especialistas:
-=======
-=======
->>>>>>> Stashed changes
     people = load_save.load_json(nome_arquivo_json)
     matchs = []
 
     for person in people:
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         find = 1
         for key, value in filtro_busca.items():
             if value is None:
                 continue
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            if especialista[key] != value:
-=======
             if person[key].lower() != value.lower():
->>>>>>> Stashed changes
-=======
-            if person[key].lower() != value.lower():
->>>>>>> Stashed changes
                 find = 0
                 break
 
         if find:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            matchs.append(especialista)
-=======
             matchs.append(person)
->>>>>>> Stashed changes
-=======
-            matchs.append(person)
->>>>>>> Stashed changes
 
     return matchs
 
@@ -135,26 +106,11 @@ def main_menu():
                 menu_cadastro()
             case 2:
                 nome = input("Digite o nome: ")
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                nome = nome if nome else None
-=======
                 nome = nome.lower() if nome else None
->>>>>>> Stashed changes
-=======
-                nome = nome.lower() if nome else None
->>>>>>> Stashed changes
 
                 cro = input("Digite o cro: ")
                 cro = cro if cro else None
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                filtro_busca = {"cro": cro, "nome": nome}
-                people = find_people("especialista", filtro_busca)
-=======
-=======
->>>>>>> Stashed changes
                 cpf = input("Digite o cpf: ")
                 cpf = cpf if cpf else None
 
@@ -163,10 +119,6 @@ def main_menu():
 
                 for person in people:
                     print(person['nome'])
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
             case 3:
                 pass
