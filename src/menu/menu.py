@@ -5,7 +5,7 @@ from src.prontuario import Prontuario
 from src.pessoa.Responsavel import Responsavel
 from src.pessoa.Endereco import Endereco
 
-def cadastro_pessoa():
+def cadastro_pessoa() -> tuple:
     nome = input("Digite o nome: ")
     cpf = input("Digite o cpf: ")
     sexo = input("Digite o sexo [M] [F]: ")
@@ -23,7 +23,7 @@ def cadastro_pessoa():
     return nome, cpf, sexo, data_nascimento, endereco, telefone
 
 
-def menu_cadastro():
+def menu_cadastro() -> None:
     loop_condition = True
     opcao = -1
 
@@ -57,7 +57,7 @@ def menu_cadastro():
                 return
 
 
-def main_menu():
+def main_menu() -> None:
     loop_condition = True
     opcao = -1
 
