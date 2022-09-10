@@ -114,11 +114,11 @@ def main_menu():
                 cpf = input("Digite o cpf: ")
                 cpf = cpf if cpf else None
 
-                filtro_busca = {"cro": cro, "nome": nome}
+                filtro_busca = {"_cro": cro, "_nome": nome}
                 people = find_people("especialistas", filtro_busca)
 
                 for person in people:
-                    print(person['nome'])
+                    print(person['_nome'])
 
             case 3:
                 pass
