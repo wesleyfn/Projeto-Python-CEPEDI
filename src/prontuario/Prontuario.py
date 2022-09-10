@@ -1,9 +1,11 @@
 import datetime
 
-from ..pessoa import Especialista, Paciente, Responsavel
+from ..pessoa.Especialista import Especialista
+from ..pessoa.Paciente import Paciente
+from ..pessoa.Responsavel import Responsavel
 
 class Prontuario:
-    def __init__(self, paciente: Paciente, especialista: Especialista = None, responsavel: Responsavel = None):
+    def __init__(self, paciente: Paciente = None, especialista: Especialista = None, responsavel: Responsavel = None):
         self.__especialista = especialista
         self.__responsavel = responsavel
         self.__paciente = paciente
@@ -46,7 +48,7 @@ class Prontuario:
 
     @responsavel.setter
     def responsavel(self, responsavel_setter) -> None:
-       self.__responsavel = responsavel_setter
+        self.__responsavel = responsavel_setter
 
     @paciente.setter
     def paciente(self, paciente_setter) -> None:
@@ -67,3 +69,5 @@ class Prontuario:
     @consulta.setter
     def consulta(self, consulta_setter) -> None:
         self.__consulta = consulta_setter
+
+    def inicialize_prontuario(self):
