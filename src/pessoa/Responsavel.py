@@ -21,3 +21,6 @@ class Responsavel(Pessoa):
     @grau_parentesco.setter 
     def grau_parentesco(self, grau_parentesto: str) -> None:
         self.__grau_parentesco = grau_parentesto
+
+    def __str__(self):
+        pass
