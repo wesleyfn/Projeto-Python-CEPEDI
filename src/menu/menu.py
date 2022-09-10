@@ -16,7 +16,7 @@ def opcao(tipo: str, string: str):
                     x = float(input(string))
                 case 's':
                     x = input(string)
-        except:
+        except TypeError:
             match tipo:
                 case 'i':
                     print('\n > Digite um número inteiro!\n')
@@ -24,7 +24,6 @@ def opcao(tipo: str, string: str):
                     print('\n > Digite um número flutuante!\n')
         else:
             return x
-    
 
 def cadastro_pessoa():
     nome = opcao('s', " > Digite o nome: ")
@@ -65,14 +64,13 @@ def menu_cadastro():
                 nro_sus = opcao('i', " > Digite o número do SUS: ")
                 print("\n")
                 paciente = Paciente(nome, cpf, sexo, data_nascimento, telefone, altura, peso, endereco, nro_sus)
-                
+
                 load_save.save_paciente(paciente)
             case 3:
-                
+
                 pass
             case 0:
                 return
-
 
 def main_menu():
     loop_condition = True

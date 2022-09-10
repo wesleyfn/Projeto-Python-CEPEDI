@@ -1,16 +1,16 @@
 [
  {
-  "nome": "matheus",
-  "cpf": "15e1e",
+  "nome": "Matheus",
+  "cpf": "19191919",
   "sexo": "M",
   "data_nascimento": "07/06/2000",
-  "telefone": "1e515151",
+  "telefone": "1818",
   "endereco": {
    "endereco": "rua do crime",
    "bairro": "criminolandia",
-   "area": "rural"
+   "area": "comercial"
   },
-  "cro": 1235,
+  "cro": 18,
   "especialidade": "matar"
  }
 ]

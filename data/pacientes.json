@@ -1,10 +1,32 @@
 [
  {
-  "nome": "Matheus",
-  "idade": 15
+  "nome": "matheus",
+  "cpf": "61",
+  "sexo": "15",
+  "data_nascimento": "15",
+  "telefone": "15",
+  "endereco": {
+   "endereco": "15",
+   "bairro": "15",
+   "area": "15"
+  },
+  "altura": 15.0,
+  "peso": 15.0,
+  "nro_sus": 15
  },
  {
   "nome": "matheus",
-  "cpf": "cpf",
-  "sexo": "m",
-  "data_nascimento": 
+  "cpf": "15",
+  "sexo": "15",
+  "data_nascimento": "15",
+  "telefone": "15",
+  "endereco": {
+   "endereco": "15",
+   "bairro": "15",
+   "area": "15"
+  },
+  "altura": 15.0,
+  "peso": 15.0,
+  "nro_sus": 15
+ }
+]
