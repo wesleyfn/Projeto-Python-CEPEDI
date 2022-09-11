@@ -1,5 +1,4 @@
 import json
-
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Endereco import Endereco
@@ -24,6 +23,32 @@ def opcao(tipo: str, string: str):
                     print('\n > Digite um número flutuante!\n')
         else:
             return x
+
+def filtros(index_of_category: int) -> dict:
+    nome = input("Digite o nome: ")
+    nome = nome.lower() if nome else None
+
+    cpf = input("Digite o cpf: ")
+    cpf = cpf if cpf else None
+
+    filtro_busca = {"nome": nome, "cpf": cpf}
+
+    match index_of_category:
+        case 1: # case especilista
+            cro = input("Digite o cro: ")
+            cro = cro if cro else None
+            filtro_busca["cro"] = cro
+
+        case 2: # case paciente
+            nro_sus = input("Digite o número do SUS: ")
+            nro_sus = nro_sus if nro_sus else None
+            filtro_busca["nro_sus"] = nro_sus
+
+        case 3: # case prontuário
+            pass
+
+    print("")
+    return filtro_busca
 
 def cadastro_pessoa():
     nome = opcao('s', " > Digite o nome: ")
@@ -109,23 +134,15 @@ def main_menu():
         match op:
             case 1:
                 menu_cadastro()
+
             case 2:
-                nome = input("Digite o nome: ")
-                nome = nome.lower() if nome else None
-
-                cro = input("Digite o cro: ")
-                cro = cro if cro else None
-
-                cpf = input("Digite o cpf: ")
-                cpf = cpf if cpf else None
-                print("")
-
-                filtro_busca = {"cro": cro, "nome": nome, "cpf": cpf}
+                filtro_busca = filtros(int(1)) # diz ao metodo filtros que será o case 1
                 people = find_people("especialistas", filtro_busca)
 
                 if not people:
                     print("Especialista nao encontrado.")
                 else:
+                    print(f"{len(people)} pessoas foram encontradas:\n")
                     for i, person in enumerate(people, 1):
                         person = Especialista(person['nome'],
                                               person['cpf'],
@@ -137,16 +154,46 @@ def main_menu():
                                               person['especialidade'],
                                               person['data_engresso'])
                         print(f"{i}-{person}")
-
-                    #Dar opção de  Selecionar Especialista por Indice e printar o especialista
                     print("")
+                    # Dar opção de  Selecionar Especialista por Indice e printar o especialista
+                    if len(people) > 1:
+                        escolha = opcao('i', "Digite o indice qual dos especialistas acima você está procurando: ")
+                        print(f"{people[escolha-1]}\n")
+                    else:
+                        print(f"{people}\n")
 
             case 3:
-                #Fazer o processo do Case 2 para o Case 3
-                pass
+                filtro_busca = filtros(int(2)) # diz ao metodo filtros que será o case 2
+                people = find_people("pacientes", filtro_busca)
+
+                if not people:
+                    print("Paciente nao encontrado.")
+                else:
+                    print(f"{len(people)} pessoas foram encontradas:\n")
+                    for i, person in enumerate(people, 1):
+                        person = Paciente(person['nome'],
+                                              person['cpf'],
+                                              person['sexo'],
+                                              person['data_nascimento'],
+                                              person['telefone'],
+                                              person['altura'],
+                                              person['peso'],
+                                              person['endereco'],
+                                              person['nro_sus'])
+                        print(f"{i}-{person}")
+                    print("")
+                    # Dar opção de  Selecionar Especialista por Indice e printar o especialista
+                    if len(people) > 1:
+                        escolha = opcao('i', "Digite o indice qual dos pacientes acima você está procurando: ")
+                        print(f"{people[escolha - 1]}\n")
+                    else:
+                        print(f"{people}\n")
+
             case 4:
+                # Este case é dependente da classe Prontuário !!!
                 pass
             case 5:
+                # Provavelmente não será implementado a tempo, então é melhor deixar quieto !!!
                 pass
             case 0:
                 return
