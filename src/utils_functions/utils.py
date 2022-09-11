@@ -73,11 +73,11 @@ def filtros(onde_buscar: int) -> dict:
     filtro_busca = {"nome": nome, "cpf": cpf}
 
     match onde_buscar:
-        case 1:  # case especilista
+        case 'Especialista':  # case especilista
             cro = opcao('s', " > Digite o CRO: ")
             filtro_busca["cro"] = cro
 
-        case 2:  # case paciente
+        case 'Paciente':  # case paciente
             nro_sus = opcao('s', " > Digite o número do SUS: ")
             filtro_busca["nro_sus"] = nro_sus
 

@@ -14,10 +14,7 @@ def cadastro_pessoa():
     return nome, cpf, sexo, data_nascimento, endereco, telefone
 
 def menu_busca(nome_objeto):
-    dic_util = {'Especialista': 1,
-                'Paciente': 2}
-
-    filtro_busca = filtros(dic_util[nome_objeto])
+    filtro_busca = filtros(nome_objeto)
     people = find_people(f"{nome_objeto.lower()}s", filtro_busca)
 
     if not people:
