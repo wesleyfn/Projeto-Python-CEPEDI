@@ -7,8 +7,7 @@ def load_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")
     try:
         with open(path, 'r', encoding='utf-8') as json_file:
-            if json_file:
-                return json.load(json_file)
+            return json.load(json_file)
     except json.decoder.JSONDecodeError:
         return None
     except FileNotFoundError:
@@ -16,7 +15,11 @@ def load_json(name_json):
             return None
 
 def save_paciente(paciente: Paciente) -> None:
-    pacientes = load_json("pacientes") if not None else []
+    pacientes = load_json("pacientes")
+    
+    if pacientes == None:
+        pacientes = []
+    
     dict_paciente = paciente.__dict__
     dict_paciente['endereco'] = paciente.endereco.__dict__
     pacientes.append(dict_paciente)
@@ -26,7 +29,11 @@ def save_paciente(paciente: Paciente) -> None:
         json.dump(pacientes, json_file, ensure_ascii=False, indent=True)
 
 def save_especialista(especialista: Especialista):
-    especialistas = load_json("especialistas") if not None else []
+    especialistas = load_json("especialistas")
+    
+    if especialistas == None:
+        especialistas = []
+        
     dict_especialista = especialista.__dict__
     dict_especialista['endereco'] = especialista.endereco.__dict__
     especialistas.append(dict_especialista)
@@ -37,6 +44,10 @@ def save_especialista(especialista: Especialista):
 
 def save_prontuario(prontuario: Prontuario):
     prontuarios = load_json("prontuarios") if not None else []
+        
+    if prontuarios == None:
+        prontuarios = []
+    
     dict_prontuario = prontuario.__dict__
     dict_prontuario['especialista'] = prontuario.especialista.__dict__
     prontuarios.append(dict_prontuario)
