@@ -4,6 +4,7 @@ from src.pessoa.Especialista import Especialista
 from src.pessoa.Endereco import Endereco
 from src.load_save import load_save
 
+
 def opcao(tipo: str, string: str):
     x = 0
     while True:
@@ -24,6 +25,7 @@ def opcao(tipo: str, string: str):
         else:
             return x
 
+
 def filtros(index_of_category: int) -> dict:
     nome = input("Digite o nome: ")
     nome = nome.lower() if nome else None
@@ -34,21 +36,22 @@ def filtros(index_of_category: int) -> dict:
     filtro_busca = {"nome": nome, "cpf": cpf}
 
     match index_of_category:
-        case 1: # case especilista
+        case 1:  # case especilista
             cro = input("Digite o cro: ")
             cro = cro if cro else None
             filtro_busca["cro"] = cro
 
-        case 2: # case paciente
+        case 2:  # case paciente
             nro_sus = input("Digite o número do SUS: ")
             nro_sus = nro_sus if nro_sus else None
             filtro_busca["nro_sus"] = nro_sus
 
-        case 3: # case prontuário
+        case 3:  # case prontuário
             pass
 
     print("")
     return filtro_busca
+
 
 def cadastro_pessoa():
     nome = opcao('s', " > Digite o nome: ")
@@ -62,6 +65,7 @@ def cadastro_pessoa():
     telefone = opcao('s', " > Digite o telefone: ")
 
     return nome, cpf, sexo, data_nascimento, endereco, telefone
+
 
 def menu_cadastro():
     loop_condition = True
@@ -97,6 +101,7 @@ def menu_cadastro():
             case 0:
                 return
 
+
 def find_people(nome_arquivo_json, filtro_busca):
     people = load_save.load_json(nome_arquivo_json)
     matchs = []
@@ -119,6 +124,7 @@ def find_people(nome_arquivo_json, filtro_busca):
 
     return matchs
 
+
 def main_menu():
     loop_condition = True
     while loop_condition:
@@ -136,7 +142,7 @@ def main_menu():
                 menu_cadastro()
 
             case 2:
-                filtro_busca = filtros(int(1)) # diz ao metodo filtros que será o case 1
+                filtro_busca = filtros(int(1))  # diz ao metodo filtros que será o case 1
                 people = find_people("especialistas", filtro_busca)
 
                 if not people:
@@ -158,12 +164,12 @@ def main_menu():
                     # Dar opção de  Selecionar Especialista por Indice e printar o especialista
                     if len(people) > 1:
                         escolha = opcao('i', "Digite o indice qual dos especialistas acima você está procurando: ")
-                        print(f"{people[escolha-1]}\n")
+                        print(f"{people[escolha - 1]}\n")
                     else:
                         print(f"{people}\n")
 
             case 3:
-                filtro_busca = filtros(int(2)) # diz ao metodo filtros que será o case 2
+                filtro_busca = filtros(int(2))  # diz ao metodo filtros que será o case 2
                 people = find_people("pacientes", filtro_busca)
 
                 if not people:
@@ -172,14 +178,14 @@ def main_menu():
                     print(f"{len(people)} pessoas foram encontradas:\n")
                     for i, person in enumerate(people, 1):
                         person = Paciente(person['nome'],
-                                              person['cpf'],
-                                              person['sexo'],
-                                              person['data_nascimento'],
-                                              person['telefone'],
-                                              person['altura'],
-                                              person['peso'],
-                                              person['endereco'],
-                                              person['nro_sus'])
+                                          person['cpf'],
+                                          person['sexo'],
+                                          person['data_nascimento'],
+                                          person['telefone'],
+                                          person['altura'],
+                                          person['peso'],
+                                          person['endereco'],
+                                          person['nro_sus'])
                         print(f"{i}-{person}")
                     print("")
                     # Dar opção de  Selecionar Especialista por Indice e printar o especialista
