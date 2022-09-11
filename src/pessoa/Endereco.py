@@ -6,4 +6,5 @@ class Endereco:
         self.area = area
     
     def __str__(self) -> str:
-        pass
+        return f"""Endereço: {self.endereco}
+        Bairro: {self.bairro}\t\tÁrea: {self.area}"""

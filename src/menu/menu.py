@@ -105,22 +105,17 @@ def find_people(nome_json, filtro_busca):
 
     for person in peoples:
         find = False
-        print("fffffffffffffffff")
+
         for key, value in filtro_busca.items():
-            if value is None or person[key] == None:
-                print(f"{key} AAAAAAAAAAAAAAAAAAAAAAAAAA")
+            if value is None or person[key] is None:
                 continue
 
             if person[key].isnumeric() and value.isnumeric():
-                print(f"{key} iiiiiiiiiiiiiii")
                 if person[key] == value:
-                    print(f"{key} oooooooooooooooooo")
                     find = True
-                    break
+
             elif person[key].lower() == value.lower():
-                print(f"{key} uuuuuuuuuuuuuu")
                 find = True
-                break
 
         if find:
             matchs.append(person)
@@ -152,6 +147,15 @@ def main_menu():
                 else:
                     print(f" > {len(people)} especialistas encontradas:\n")
                     for i, person in enumerate(people, 1):
+                        print(f"{i}-Nome: {person['nome']}, CRO: {person['cpf']}, Especialidade: {person['especialidade']}")
+                    print("")
+
+                    if len(people) > 1:
+                        op = opcao('i', " > Escolha o especialista: ")
+                        person = people[op - 1]
+                        person['endereco'] = Endereco(person['endereco']['endereco'],
+                                                      person['endereco']['bairro'],
+                                                      person['endereco']['area'])
                         person = Especialista(person['nome'],
                                               person['cpf'],
                                               person['sexo'],
@@ -161,14 +165,7 @@ def main_menu():
                                               person['cro'],
                                               person['especialidade'],
                                               person['data_engresso'])
-                        print(f"{i}-{person}")
-                    print("")
-                    # Dar opção de  Selecionar Especialista por Indice e printar o especialista
-                    if len(people) > 1:
-                        op = opcao('i', " > Escolha o especialista procurado: ")
-                        print(f"{people[op - 1]}\n")
-                    else:
-                        print(f"{people}\n")
+                        print(f"{person}\n")
 
             case 3:
                 filtro_busca = filtros(2)  # diz ao metodo filtros que será o case 2
@@ -179,6 +176,15 @@ def main_menu():
                 else:
                     print(f" > {len(people)} pessoas foram encontradas:\n")
                     for i, person in enumerate(people, 1):
+                        print(f"{i}-Nome: {person['nome']}, CPF: {person['cpf']}, Número do SUS: {person['nro_sus']}")
+                    print("")
+
+                    if len(people) > 1:
+                        op = opcao('i', " > Escolha o paciente: ")
+                        person = people[op - 1]
+                        person['endereco'] = Endereco(person['endereco']['endereco'],
+                                                      person['endereco']['bairro'],
+                                                      person['endereco']['area'])
                         person = Paciente(person['nome'],
                                           person['cpf'],
                                           person['sexo'],
@@ -188,14 +194,7 @@ def main_menu():
                                           person['peso'],
                                           person['endereco'],
                                           person['nro_sus'])
-                        print(f"{i}-{person}")
-                    print("")
-                    # Dar opção de  Selecionar Paciente por Indice e printar o paciente
-                    if len(people) > 1:
-                        op = opcao('i', " > Escolha o especialista procurado: ")
-                        print(f"{people[op - 1]}\n")
-                    else:
-                        print(f"{people}\n")
+                        print(f"{person}\n")
 
             case 4:
                 # Este case é dependente da classe Prontuário !!!
