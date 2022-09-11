@@ -1,7 +1,9 @@
-import os, json
+import json
+import os
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.prontuario.Prontuario import Prontuario
+
 
 def load_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")

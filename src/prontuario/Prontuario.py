@@ -2,7 +2,6 @@ from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Responsavel import Responsavel
 
-
 def insere_itens(lista) -> list:
     while True:
         novo_item = input(" Nova item ou digite 0 para sair: ")

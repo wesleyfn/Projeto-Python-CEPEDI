@@ -1,3 +1,3 @@
-from menu import menu
+from src.utils_functions import menu
 
 menu.main_menu()
