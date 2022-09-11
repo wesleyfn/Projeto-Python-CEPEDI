@@ -1,32 +1,17 @@
 [
  {
-  "nome": "Matheus",
-  "cpf": "efe",
-  "sexo": "efe",
-  "data_nascimento": "fe",
+  "nome": "sd",
+  "cpf": "sd",
+  "sexo": "s",
+  "data_nascimento": "ds",
   "endereco": {
-   "endereco": "fe",
-   "bairro": "fe",
-   "area": "fe"
+   "endereco": "ds",
+   "bairro": "ds",
+   "area": "d"
   },
-  "telefone": "fe",
-  "altura": 170.0,
-  "peso": 19.0,
-  "nro_sus": 25
- },
- {
-  "nome": "Matheus",
-  "cpf": "efe",
-  "sexo": "fe",
-  "data_nascimento": "fe",
-  "endereco": {
-   "endereco": "fe",
-   "bairro": "fe",
-   "area": "fe"
-  },
-  "telefone": "fe",
-  "altura": 170.0,
-  "peso": 19.0,
-  "nro_sus": 15
+  "telefone": "sd",
+  "altura": 8.0,
+  "peso": 8.0,
+  "nro_sus": "8"
  }
 ]

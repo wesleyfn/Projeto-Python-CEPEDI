@@ -4,7 +4,7 @@ from src.pessoa.Endereco import Endereco
 class Paciente(Pessoa):
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  telefone: str, altura: float, peso: float, endereco: Endereco, 
-                 nro_sus: int = None):
+                 nro_sus: str):
 
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
         self.altura = altura
@@ -12,4 +12,4 @@ class Paciente(Pessoa):
         self.nro_sus = nro_sus
 
     def __str__(self):
-        pass
+        return f"Nome: {self.nome}, CPF: {self.cpf}, Data de Nascimento: {self.data_nascimento}"
