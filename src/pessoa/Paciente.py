@@ -12,7 +12,7 @@ class Paciente(Pessoa):
         self.nro_sus = nro_sus
 
     def __str__(self):
-        saida = f"\n\nNome: {self.nome}\t\tCPF: {self.cpf}\t\tNúmero do SUS: {self.nro_sus}\n\
+        saida = f"\t\tNome: {self.nome}\t\tCPF: {self.cpf}\t\tNúmero do SUS: {self.nro_sus}\n\
         Sexo: {self.sexo}\t\tData de Nascimento: {self.data_nascimento}\t\tTelefone: {self.telefone}\n\
         {self.endereco}\n\
         Altura: {self.altura}\t\tPeso: {self.peso}\n"

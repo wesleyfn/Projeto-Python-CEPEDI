@@ -104,18 +104,18 @@ def find_people(nome_json, filtro_busca):
         return []
 
     for person in peoples:
-        find = False
+        find = True
 
         for key, value in filtro_busca.items():
             if value is None or person[key] is None:
                 continue
 
             if person[key].isnumeric() and value.isnumeric():
-                if person[key] == value:
-                    find = True
+                if person[key] != value:
+                    find = False
 
-            elif person[key].lower() == value.lower():
-                find = True
+            elif person[key].lower() != value.lower():
+                find = False
 
         if find:
             matchs.append(person)
