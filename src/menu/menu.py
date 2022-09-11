@@ -2,6 +2,8 @@ from src.pessoa.Paciente import Paciente
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Endereco import Endereco
 from src.load_save import load_save
+from src.utils.dict_to_obj import dict_to_obj
+from src.utils.list_all import list_all
 
 def opcao(tipo: str, string: str):
     x = None
@@ -145,26 +147,12 @@ def main_menu():
                 if not people:
                     print(" > Especialista não encontrado!\n")
                 else:
-                    print(f" > {len(people)} especialistas encontradas:\n")
-                    for i, person in enumerate(people, 1):
-                        print(f"{i}-Nome: {person['nome']}, CRO: {person['cpf']}, Especialidade: {person['especialidade']}")
-                    print("")
+                    print(f" > {len(people)} especialistas encontrados:\n")
+                    list_all(people, "Especialista")
 
                     if len(people) > 1:
                         op = opcao('i', " > Escolha o especialista: ")
-                        person = people[op - 1]
-                        person['endereco'] = Endereco(person['endereco']['endereco'],
-                                                      person['endereco']['bairro'],
-                                                      person['endereco']['area'])
-                        person = Especialista(person['nome'],
-                                              person['cpf'],
-                                              person['sexo'],
-                                              person['data_nascimento'],
-                                              person['endereco'],
-                                              person['telefone'],
-                                              person['cro'],
-                                              person['especialidade'],
-                                              person['data_engresso'])
+                        person = dict_to_obj(people[op - 1], "Especialista")
                         print(f"{person}\n")
 
             case 3:
@@ -175,25 +163,11 @@ def main_menu():
                     print(" > Paciente não encontrado!\n")
                 else:
                     print(f" > {len(people)} pessoas foram encontradas:\n")
-                    for i, person in enumerate(people, 1):
-                        print(f"{i}-Nome: {person['nome']}, CPF: {person['cpf']}, Número do SUS: {person['nro_sus']}")
-                    print("")
+                    list_all(people, "Paciente")
 
                     if len(people) > 1:
                         op = opcao('i', " > Escolha o paciente: ")
-                        person = people[op - 1]
-                        person['endereco'] = Endereco(person['endereco']['endereco'],
-                                                      person['endereco']['bairro'],
-                                                      person['endereco']['area'])
-                        person = Paciente(person['nome'],
-                                          person['cpf'],
-                                          person['sexo'],
-                                          person['data_nascimento'],
-                                          person['telefone'],
-                                          person['altura'],
-                                          person['peso'],
-                                          person['endereco'],
-                                          person['nro_sus'])
+                        person = dict_to_obj(people[op - 1], "Paciente")
                         print(f"{person}\n")
 
             case 4:
