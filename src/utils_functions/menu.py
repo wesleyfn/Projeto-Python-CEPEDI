@@ -13,6 +13,27 @@ def cadastro_pessoa():
 
     return nome, cpf, sexo, data_nascimento, endereco, telefone
 
+def menu_busca(nome_objeto):
+    dic_util = {'Especialista': 1,
+                'Paciente': 2}
+
+    filtro_busca = filtros(dic_util[nome_objeto])
+    people = find_people(f"{nome_objeto.lower()}s", filtro_busca)
+
+    if not people:
+        print(f" > {nome_objeto} não encontrado!\n")
+    else:
+        if len(people) == 1:
+            print(f" > {len(people)} {nome_objeto.lower()} foi encontrado:\n")
+        else:
+            print(f" > {len(people)} {nome_objeto.lower()}s foram encontrados:\n")
+        list_all(people, nome_objeto)
+
+        if len(people) > 1:
+            op = opcao('i', f" > Escolha o {nome_objeto.lower()}: ")
+            person = dict_to_obj(people[op - 1], nome_objeto)
+            print(f"{person}\n")
+
 def menu_cadastro():
     loop_condition = True
 
@@ -62,37 +83,10 @@ def main_menu():
         match op:
             case 1:
                 menu_cadastro()
-
             case 2:
-                filtro_busca = filtros(1)  # diz ao metodo filtros que será o case 1
-                people = find_people("especialistas", filtro_busca)
-
-                if not people:
-                    print(" > Especialista não encontrado!\n")
-                else:
-                    print(f" > {len(people)} especialistas encontrados:\n")
-                    list_all(people, "Especialista")
-
-                    if len(people) > 1:
-                        op = opcao('i', " > Escolha o especialista: ")
-                        person = dict_to_obj(people[op - 1], "Especialista")
-                        print(f"{person}\n")
-
+                menu_busca("Especialista")
             case 3:
-                filtro_busca = filtros(2)  # diz ao metodo filtros que será o case 2
-                people = find_people("pacientes", filtro_busca)
-
-                if not people:
-                    print(" > Paciente não encontrado!\n")
-                else:
-                    print(f" > {len(people)} pessoas foram encontradas:\n")
-                    list_all(people, "Paciente")
-
-                    if len(people) > 1:
-                        op = opcao('i', " > Escolha o paciente: ")
-                        person = dict_to_obj(people[op - 1], "Paciente")
-                        print(f"{person}\n")
-
+                menu_busca("Paciente")
             case 4:
                 # Este case é dependente da classe Prontuário !!!
                 pass

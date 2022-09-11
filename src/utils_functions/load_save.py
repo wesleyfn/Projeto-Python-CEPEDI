@@ -19,7 +19,7 @@ def load_json(name_json):
 def save_paciente(paciente: Paciente) -> None:
     pacientes = load_json("pacientes")
     
-    if pacientes == None:
+    if pacientes is None:
         pacientes = []
     
     dict_paciente = paciente.__dict__
@@ -33,7 +33,7 @@ def save_paciente(paciente: Paciente) -> None:
 def save_especialista(especialista: Especialista):
     especialistas = load_json("especialistas")
     
-    if especialistas == None:
+    if especialistas is None:
         especialistas = []
         
     dict_especialista = especialista.__dict__
@@ -47,7 +47,7 @@ def save_especialista(especialista: Especialista):
 def save_prontuario(prontuario: Prontuario):
     prontuarios = load_json("prontuarios") if not None else []
         
-    if prontuarios == None:
+    if prontuarios is None:
         prontuarios = []
     
     dict_prontuario = prontuario.__dict__
