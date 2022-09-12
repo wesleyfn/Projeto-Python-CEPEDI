@@ -47,18 +47,28 @@ def print_pathologies() -> None:
 
 class Prontuario:
     def __init__(self):
-        self.especialista = None
-        self.responsavel = None
         self.paciente = None
+        self.responsavel = None
+        self.consulta = None
+        self.data = None
         self.patologia = []
         self.procedimento = []
-        self.data = None
-        self.consulta = None
+        self.especialista = None
 
     def inicializar_prontuario(self) -> None:
         self.data = input(" > Digite a data do procedimento [dd/mm/aa]: ")
         self.paciente = busca_pessoas_prontuario('Paciente')
         self.consulta = input(f" > Qual o tipo de consulta ({imprime_tipo_consulta()}):\n > ")
+
+        op = utils.opcao("s", f"Há responsável [S/N]?")
+        if op == 'S' or op == 's':
+            print("Digite as informações do responsável\n")
+            nome, cpf, sexo, data_nascimento, endereco, telefone = menu.cadastro_pessoa()
+            grau_parentesco = input("Digite o grau de parentesco: ")
+            self.responsavel = Responsavel(nome, cpf, sexo, data_nascimento, telefone, endereco, grau_parentesco)
+        else:
+            self.responsavel = "Não há"
+
         self.especialista = busca_pessoas_prontuario('Especialista')
 
         print(f"\n")

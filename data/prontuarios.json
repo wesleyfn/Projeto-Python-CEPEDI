@@ -1,0 +1,60 @@
+[
+   {
+      "paciente": {
+         "nome": "Igor",
+         "cpf": "151351351",
+         "sexo": "F",
+         "data_nascimento": "09/06/2000",
+         "endereco": {
+            "endereco": "Algum buraco de jequié",
+            "bairro": "algum bairro de jequié",
+            "area": "Rural"
+         },
+         "telefone": "691919",
+         "altura": 1.8,
+         "peso": 120.0,
+         "nro_sus": "17"
+      },
+      "responsavel": {
+         "nome": "Igor",
+         "cpf": "151351351",
+         "sexo": "F",
+         "data_nascimento": "09/06/2000",
+         "endereco": {
+            "endereco": "Algum buraco de jequié",
+            "bairro": "algum bairro de jequié",
+            "area": "Rural"
+         },
+         "telefone": "691919",
+         "altura": 1.8,
+         "peso": 120.0,
+         "nro_sus": "17"
+      },
+      "consulta": "Tratamento",
+      "data": "07/06/2022",
+      "patologia": [
+         "Sífilis",
+         "Tatuagem",
+         "LOL, RPG, muito Anime"
+      ],
+      "procedimento": [
+         "Porradaria coletiva",
+         "20 dias sem Anime"
+      ],
+      "especialista": {
+         "nome": "Igor",
+         "cpf": 153153153,
+         "sexo": "F",
+         "data_nascimento": "09/06/2000",
+         "endereco": {
+            "endereco": "buraco",
+            "bairro": "buraco de jequie",
+            "area": "rural"
+         },
+         "telefone": "1515",
+         "cro": "15",
+         "data_engresso": "04/07/1934",
+         "especialidade": "trolar"
+      }
+   }
+]

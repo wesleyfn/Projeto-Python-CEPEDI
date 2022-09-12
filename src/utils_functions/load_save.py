@@ -3,7 +3,7 @@ import os
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.prontuario.Prontuario import Prontuario
-
+from src.pessoa.Responsavel import Responsavel
 
 def load_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")
@@ -28,7 +28,7 @@ def save_paciente(paciente: Paciente) -> None:
 
     path = os.path.abspath("../data/pacientes.json")
     with open(path, 'w', encoding='utf-8') as json_file:
-        json.dump(pacientes, json_file, ensure_ascii=False, indent=True)
+        json.dump(pacientes, json_file, ensure_ascii=False, indent=3)
 
 def save_especialista(especialista: Especialista):
     especialistas = load_json("especialistas")
@@ -42,7 +42,7 @@ def save_especialista(especialista: Especialista):
 
     path = os.path.abspath("../data/especialistas.json")
     with open(path, 'w', encoding='utf-8') as json_file:
-        json.dump(especialistas, json_file, ensure_ascii=False, indent=True)
+        json.dump(especialistas, json_file, ensure_ascii=False, indent=3)
 
 def save_prontuario(prontuario: Prontuario):
     prontuarios = load_json("prontuarios") if not None else []
@@ -51,9 +51,22 @@ def save_prontuario(prontuario: Prontuario):
         prontuarios = []
     
     dict_prontuario = prontuario.__dict__
-    dict_prontuario['especialista'] = prontuario.especialista.__dict__
+
+    paciente_temp = prontuario.paciente.__dict__
+    paciente_temp['endereco'] = prontuario.paciente.endereco.__dict__
+    dict_prontuario['paciente'] = paciente_temp
+
+    if isinstance(prontuario.responsavel, Responsavel):
+        responsavel_temp = prontuario.responsavel.__dict__
+        responsavel_temp['endereco'] = prontuario.responsavel.endereco.__dict__
+        dict_prontuario['responsavel'] = paciente_temp
+
+    especialista_temp = prontuario.especialista.__dict__
+    especialista_temp['endereco'] = prontuario.especialista.endereco.__dict__
+    dict_prontuario['especialista'] = especialista_temp
+
     prontuarios.append(dict_prontuario)
 
     path = os.path.abspath("../data/prontuarios.json")
     with open(path, 'w', encoding='utf-8') as json_file:
-        json.dump(prontuarios, json_file, ensure_ascii=False, indent=True)
+        json.dump(prontuarios, json_file, ensure_ascii=False, indent=3)

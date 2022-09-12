@@ -1,4 +1,5 @@
 from src.utils_functions.utils import *
+from src.prontuario.Prontuario import Prontuario
 
 def cadastro_pessoa():
     nome = opcao('s', " > Digite o nome: ")
@@ -34,20 +35,11 @@ def menu_busca(nome_objeto, return_busca=False):
             return person
         print(f"{person}\n")
 
-        op_aux = opcao('i', f"\n[1]-Atualizar {nome_objeto}\t[2] Remover {nome_objeto}\t [0] Sair")
-
-        match op_aux:
-            case 1:
-                pass
-            case 2:
-                pass
-            case 0: return
-
 def menu_cadastro():
     loop_condition = True
 
     while loop_condition:
-        print(" 1. Cadastrar Especialista\n 2. Cadastrar Paciente\n 3. Cadastrar Prontuáio\n 0. Voltar")
+        print(" 1. Cadastrar Especialista\n 2. Cadastrar Paciente\n 3. Cadastrar Prontuário\n 0. Voltar")
         op = opcao('i', " > Opção:")
         print("")
 
@@ -72,8 +64,10 @@ def menu_cadastro():
 
                 load_save.save_paciente(paciente)
             case 3:
+                prontuario = Prontuario()
+                prontuario.inicializar_prontuario()
 
-                pass
+                load_save.save_prontuario(prontuario)
             case 0:
                 return
 
@@ -84,7 +78,6 @@ def main_menu():
               " 2. Buscar Especialista\n"
               " 3. Buscar Paciente\n"
               " 4. Buscar Prontuário\n"
-              " 5. Importar/Exportar Prontuário\n"
               " 0. Sair")
         op = opcao('i', " > Digite a opção: ")
         print("")
@@ -97,10 +90,6 @@ def main_menu():
             case 3:
                 menu_busca("Paciente")
             case 4:
-                # Este case é dependente da classe Prontuário !!!
-                pass
-            case 5:
-                # Provavelmente não será implementado a tempo, então é melhor deixar quieto !!!
-                pass
+                menu_busca("Prontuario")
             case 0:
                 return

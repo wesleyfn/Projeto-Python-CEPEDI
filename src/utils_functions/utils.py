@@ -2,6 +2,7 @@ from src.utils_functions import load_save
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Endereco import Endereco
+from src.pessoa.Responsavel import Responsavel
 
 def list_all(people, nome_objeto):
     if nome_objeto == "Especialista":
@@ -76,23 +77,24 @@ def opcao(tipo: str, string: str):
             return x
 
 def filtros(onde_buscar: int) -> dict:
-    nome = opcao('s', f" > Digite o nome do {onde_buscar}: ")
-    cpf = opcao('s', f" > Digite o CPF {onde_buscar}: ")
+    nome = opcao('s', f" > Digite o nome do paciente: ")
+    cpf = opcao('s', f" > Digite o CPF do paciente: ")
 
     filtro_busca = {"nome": nome, "cpf": cpf}
 
     match onde_buscar:
         case 'Especialista':  # case especilista
-            cro = opcao('s', f" > Digite o CRO do {onde_buscar}: ")
+            cro = opcao('s', f" > Digite o CRO do especialista: ")
             filtro_busca["cro"] = cro
 
         case 'Paciente':  # case paciente
-            nro_sus = opcao('s', f" > Digite o número do SUS {onde_buscar}: ")
+            nro_sus = opcao('s', f" > Digite o número do SUS do paciente: ")
             filtro_busca["nro_sus"] = nro_sus
 
-        case 3:  # case prontuário
-            pass
-
+        case 'Prontuario':  # case prontuário
+            nome_especialista = opcao('s', f" > Digite o nome do especialista: ")
+            filtro_busca['nome_especialista'] = nome_especialista
+            filtro_busca['data'] = opcao("s", f"Digita a data do prontuário: ")
     print("")
     return filtro_busca
 
@@ -112,6 +114,16 @@ def find_people(nome_json, filtro_busca):
 
             if person[key].isnumeric() and value.isnumeric():
                 if person[key] != value:
+                    find = False
+
+            elif key == 'nome' and nome_json == 'Prontuario':
+                paciente = person['paciente']
+                if paciente['nome'] != value:
+                    find = False
+
+            elif key == 'nome_especialista':
+                especialista = person['especialista']
+                if especialista['nome'] != value:
                     find = False
 
             elif person[key].lower() != value.lower():

@@ -1,32 +1,62 @@
 [
- {
-  "nome": "Matheus",
-  "cpf": "15",
-  "sexo": "F",
-  "data_nascimento": "07/06/2000",
-  "endereco": {
-   "endereco": "rua do crime",
-   "bairro": "Criminolandia",
-   "area": "Rural"
-  },
-  "telefone": "6969",
-  "altura": 1.75,
-  "peso": 75.0,
-  "nro_sus": "15"
- },
- {
-  "nome": "Matheus",
-  "cpf": "15",
-  "sexo": "M",
-  "data_nascimento": "07/06/2000",
-  "endereco": {
-   "endereco": "rua",
-   "bairro": "bairro",
-   "area": "rural"
-  },
-  "telefone": "1515",
-  "altura": 1.75,
-  "peso": 75.0,
-  "nro_sus": "15"
- }
+   {
+      "nome": "Matheus",
+      "cpf": "123",
+      "sexo": "M",
+      "data_nascimento": "07/06/2000",
+      "endereco": {
+         "endereco": "Rua do crime",
+         "bairro": "Odilon",
+         "area": "Residencial"
+      },
+      "telefone": "696969",
+      "altura": 1.75,
+      "peso": 75.0,
+      "nro_sus": "15"
+   },
+   {
+      "nome": "Igor",
+      "cpf": "123456",
+      "sexo": "F",
+      "data_nascimento": "09/06/2000",
+      "endereco": {
+         "endereco": "Algum buraco de jequié",
+         "bairro": "algum bairro de jequié",
+         "area": "Rural"
+      },
+      "telefone": "691919",
+      "altura": 1.8,
+      "peso": 120.0,
+      "nro_sus": "14"
+   },
+   {
+      "nome": "Matheus",
+      "cpf": "1351351531",
+      "sexo": "M",
+      "data_nascimento": "07/06/2000",
+      "endereco": {
+         "endereco": "Rua do crime",
+         "bairro": "Odilon",
+         "area": "Residencial"
+      },
+      "telefone": "696969",
+      "altura": 1.75,
+      "peso": 75.0,
+      "nro_sus": "16"
+   },
+   {
+      "nome": "Igor",
+      "cpf": "151351351",
+      "sexo": "F",
+      "data_nascimento": "09/06/2000",
+      "endereco": {
+         "endereco": "Algum buraco de jequié",
+         "bairro": "algum bairro de jequié",
+         "area": "Rural"
+      },
+      "telefone": "691919",
+      "altura": 1.8,
+      "peso": 120.0,
+      "nro_sus": "17"
+   }
 ]
