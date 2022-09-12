@@ -13,12 +13,13 @@ def cadastro_pessoa():
 
     return nome, cpf, sexo, data_nascimento, endereco, telefone
 
-def menu_busca(nome_objeto):
+def menu_busca(nome_objeto, return_busca=False):
     filtro_busca = filtros(nome_objeto)
     people = find_people(f"{nome_objeto.lower()}s", filtro_busca)
 
     if not people:
         print(f" > {nome_objeto} não encontrado!\n")
+        return None
     else:
         if len(people) == 1:
             print(f" > {len(people)} {nome_objeto.lower()} foi encontrado:\n")
@@ -26,10 +27,21 @@ def menu_busca(nome_objeto):
             print(f" > {len(people)} {nome_objeto.lower()}s foram encontrados:\n")
         list_all(people, nome_objeto)
 
-        if len(people) > 1:
-            op = opcao('i', f" > Escolha o {nome_objeto.lower()}: ")
-            person = dict_to_obj(people[op - 1], nome_objeto)
-            print(f"{person}\n")
+        op = opcao('i', f" > Escolha o {nome_objeto.lower()}: ")
+        person = dict_to_obj(people[op - 1], nome_objeto)
+
+        if return_busca:
+            return person
+        print(f"{person}\n")
+
+        op_aux = opcao('i', f"\n[1]-Atualizar {nome_objeto}\t[2] Remover {nome_objeto}\t [0] Sair")
+
+        match op_aux:
+            case 1:
+                pass
+            case 2:
+                pass
+            case 0: return
 
 def menu_cadastro():
     loop_condition = True
@@ -43,7 +55,7 @@ def menu_cadastro():
             case 1:
                 nome, cpf, sexo, data_nascimento, endereco, telefone = cadastro_pessoa()
                 cro = opcao('s', " > Digite o CRO: ")
-                data_engresso = opcao('s', " > Digite a data de engresso dd/mm/aa: ")
+                data_engresso = opcao('s', " > Digite a data de engresso [dd/mm/aa]: ")
                 especialidade = opcao('s', " > Digite a especialidade: ")
                 print("")
                 especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, telefone, cro, especialidade,

@@ -14,6 +14,15 @@ def list_all(people, nome_objeto):
             print(f"{i}-Nome: {person['nome']}, CPF: {person['cpf']}, Número do SUS: {person['nro_sus']}")
         print("")
 
+    elif nome_objeto == "Prontuario":
+        for i, person in enumerate(people, 1):
+            paciente = person['paciente']
+            especialista = person['especialista']
+
+            print(f"{i}-Paciente: {paciente['nome']}, Número do SUS: {paciente['paciente']['nro_sus']}\n"
+                  f", Especialista: {especialista['nome']}, CRO: {especialista['cro']}\n"
+                  f"Data do prontuário: {person['data']}")
+
 def dict_to_obj(person, nome_objeto):
     person['endereco'] = Endereco(person['endereco']['endereco'],
                                   person['endereco']['bairro'],
@@ -67,18 +76,18 @@ def opcao(tipo: str, string: str):
             return x
 
 def filtros(onde_buscar: int) -> dict:
-    nome = opcao('s', " > Digite o nome: ")
-    cpf = opcao('s', " > Digite o CPF: ")
+    nome = opcao('s', f" > Digite o nome do {onde_buscar}: ")
+    cpf = opcao('s', f" > Digite o CPF {onde_buscar}: ")
 
     filtro_busca = {"nome": nome, "cpf": cpf}
 
     match onde_buscar:
         case 'Especialista':  # case especilista
-            cro = opcao('s', " > Digite o CRO: ")
+            cro = opcao('s', f" > Digite o CRO do {onde_buscar}: ")
             filtro_busca["cro"] = cro
 
         case 'Paciente':  # case paciente
-            nro_sus = opcao('s', " > Digite o número do SUS: ")
+            nro_sus = opcao('s', f" > Digite o número do SUS {onde_buscar}: ")
             filtro_busca["nro_sus"] = nro_sus
 
         case 3:  # case prontuário
