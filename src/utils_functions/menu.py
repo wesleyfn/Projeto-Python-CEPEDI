@@ -90,6 +90,6 @@ def main_menu():
             case 3:
                 menu_busca("Paciente")
             case 4:
-                menu_busca("Prontuario")
+                menu_busca("Prontuario") # Não está funcionando
             case 0:
                 return

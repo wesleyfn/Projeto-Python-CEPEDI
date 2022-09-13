@@ -80,7 +80,10 @@ def filtros(onde_buscar: int) -> dict:
     nome = opcao('s', f" > Digite o nome do paciente: ")
     cpf = opcao('s', f" > Digite o CPF do paciente: ")
 
-    filtro_busca = {"nome": nome, "cpf": cpf}
+    if onde_buscar != 'Prontuario':
+        filtro_busca = {"nome": nome, "cpf": cpf}
+    else:
+        filtro_busca = {'paciente': {"nome": nome, "cpf": cpf}}
 
     match onde_buscar:
         case 'Especialista':  # case especilista
@@ -92,9 +95,7 @@ def filtros(onde_buscar: int) -> dict:
             filtro_busca["nro_sus"] = nro_sus
 
         case 'Prontuario':  # case prontuário
-            nome_especialista = opcao('s', f" > Digite o nome do especialista: ")
-            filtro_busca['nome_especialista'] = nome_especialista
-            filtro_busca['data'] = opcao("s", f"Digita a data do prontuário: ")
+            filtro_busca['data'] = opcao("s", f"> Digite a data do prontuário: ")
     print("")
     return filtro_busca
 
@@ -112,18 +113,13 @@ def find_people(nome_json, filtro_busca):
             if value is None or person[key] is None:
                 continue
 
-            if person[key].isnumeric() and value.isnumeric():
+            elif key != 'paciente' and person[key].isnumeric() and value.isnumeric():
                 if person[key] != value:
                     find = False
 
-            elif key == 'nome' and nome_json == 'Prontuario':
+            elif key == 'paciente':
                 paciente = person['paciente']
-                if paciente['nome'] != value:
-                    find = False
-
-            elif key == 'nome_especialista':
-                especialista = person['especialista']
-                if especialista['nome'] != value:
+                if paciente['nome'] != value['nome'] or paciente['cpf'] != value['cpf']:
                     find = False
 
             elif person[key].lower() != value.lower():
