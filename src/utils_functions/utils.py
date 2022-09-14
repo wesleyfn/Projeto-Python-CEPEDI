@@ -20,14 +20,22 @@ def list_all(people, nome_objeto):
             paciente = person['paciente']
             especialista = person['especialista']
 
-            print(f"{i}-Paciente: {paciente['nome']}, Número do SUS: {paciente['paciente']['nro_sus']}\n"
+            print(f"{i}-Paciente: {paciente['nome']}, Número do SUS: {paciente['nro_sus']}\n"
                   f", Especialista: {especialista['nome']}, CRO: {especialista['cro']}\n"
                   f"Data do prontuário: {person['data']}")
 
 def dict_to_obj(person, nome_objeto):
-    person['endereco'] = Endereco(person['endereco']['endereco'],
-                                  person['endereco']['bairro'],
-                                  person['endereco']['area'])
+
+    if nome_objeto == "Prontuario":
+        aux_endereco = person['paciente']
+        aux_endereco['endereco'] = Endereco(aux_endereco['endereco']['endereco'],
+                                            aux_endereco['endereco']['bairro'],
+                                            aux_endereco['endereco']['area'])
+
+    else:
+        person['endereco'] = Endereco(person['endereco']['endereco'],
+                                      person['endereco']['bairro'],
+                                      person['endereco']['area'])
 
     if nome_objeto == "Especialista":
         person = Especialista(person['nome'],
@@ -119,7 +127,7 @@ def find_people(nome_json, filtro_busca):
 
             elif key == 'paciente':
                 paciente = person['paciente']
-                if paciente['nome'] != value['nome'] or paciente['cpf'] != value['cpf']:
+                if paciente['nome'] != value['nome'] and paciente['cpf'] != value['cpf']:
                     find = False
 
             elif person[key].lower() != value.lower():
