@@ -1,9 +1,7 @@
-import json
-import os
+import json, os
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.prontuario.Prontuario import Prontuario
-from src.pessoa.Responsavel import Responsavel
 
 def load_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")
@@ -45,14 +43,19 @@ def save_especialista(especialista: Especialista):
         json.dump(especialistas, json_file, ensure_ascii=False, indent=3)
 
 def save_prontuario(prontuario: Prontuario):
-    prontuarios = load_json("prontuarios") if not None else []
+    prontuarios = load_json("prontuarios")
         
     if prontuarios is None:
         prontuarios = []
     
     dict_prontuario = prontuario.__dict__
-
-    paciente_temp = prontuario.paciente.__dict__
+    prontuarios.append(dict_prontuario)
+    
+    path = os.path.abspath("../data/prontuarios.json")
+    with open(path, 'w', encoding='utf-8') as json_file:
+        json.dump(prontuarios, json_file, ensure_ascii=False, indent=3)
+        
+"""     paciente_temp = prontuario.paciente.__dict__
     paciente_temp['endereco'] = prontuario.paciente.endereco.__dict__
     dict_prontuario['paciente'] = paciente_temp
 
@@ -65,8 +68,6 @@ def save_prontuario(prontuario: Prontuario):
     especialista_temp['endereco'] = prontuario.especialista.endereco.__dict__
     dict_prontuario['especialista'] = especialista_temp
 
-    prontuarios.append(dict_prontuario)
+    prontuarios.append(dict_prontuario) """
 
-    path = os.path.abspath("../data/prontuarios.json")
-    with open(path, 'w', encoding='utf-8') as json_file:
-        json.dump(prontuarios, json_file, ensure_ascii=False, indent=3)
+

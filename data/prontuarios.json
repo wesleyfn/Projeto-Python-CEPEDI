@@ -1,60 +1,40 @@
 [
    {
-      "paciente": {
-         "nome": "Igor",
-         "cpf": "151351351",
-         "sexo": "F",
-         "data_nascimento": "09/06/2000",
-         "endereco": {
-            "endereco": "Algum buraco de jequié",
-            "bairro": "algum bairro de jequié",
-            "area": "Rural"
-         },
-         "telefone": "691919",
-         "altura": 1.8,
-         "peso": 120.0,
-         "nro_sus": "17"
-      },
-      "responsavel": {
-         "nome": "Igor",
-         "cpf": "151351351",
-         "sexo": "F",
-         "data_nascimento": "09/06/2000",
-         "endereco": {
-            "endereco": "Algum buraco de jequié",
-            "bairro": "algum bairro de jequié",
-            "area": "Rural"
-         },
-         "telefone": "691919",
-         "altura": 1.8,
-         "peso": 120.0,
-         "nro_sus": "17"
-      },
-      "consulta": "Tratamento",
-      "data": "07/06/2022",
-      "patologia": [
-         "Sífilis",
-         "Tatuagem",
-         "LOL, RPG, muito Anime"
+      "nome_paciente": "3",
+      "especialista": "4",
+      "data": "4",
+      "patologias": [
+         "Desmaios",
+         "Epilepsia",
+         "Outras drogas"
       ],
-      "procedimento": [
-         "Porradaria coletiva",
-         "20 dias sem Anime"
+      "tipo_consulta": "Primeira Consulta",
+      "procedimento": "",
+      "responsavel": null
+   },
+   {
+      "nome_paciente": "3",
+      "especialista": "Arroz",
+      "data": "8",
+      "patologias": [
+         "Tumor",
+         "Outras drogas"
       ],
-      "especialista": {
-         "nome": "Igor",
-         "cpf": 153153153,
-         "sexo": "F",
-         "data_nascimento": "09/06/2000",
-         "endereco": {
-            "endereco": "buraco",
-            "bairro": "buraco de jequie",
-            "area": "rural"
-         },
-         "telefone": "1515",
-         "cro": "15",
-         "data_engresso": "04/07/1934",
-         "especialidade": "trolar"
-      }
+      "tipo_consulta": "Tratamento",
+      "procedimento": "",
+      "responsavel": null
+   },
+   {
+      "nome_paciente": "Vania",
+      "especialista": "1",
+      "data": "5",
+      "patologias": [
+         "Alergia",
+         "Problema Renal (Rim)",
+         "Outras drogas"
+      ],
+      "tipo_consulta": "Urgencia",
+      "procedimento": "",
+      "responsavel": null
    }
 ]

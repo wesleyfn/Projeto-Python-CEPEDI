@@ -6,7 +6,7 @@ class Responsavel(Pessoa):
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str, 
                  telefone: str, endereco: Endereco, grau_parentesco: str):
 
-        # Construtor da classe herdade
+        # Construtor da classe herdada (Pessoa)
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
         self.grau_parentesco = grau_parentesco
 

@@ -14,8 +14,7 @@ class Especialista(Pessoa):
         self.especialidade = especialidade
 
     def __str__(self) -> str:
-        saida = f"""\t\tNome: {self.nome}\t\tCPF: {self.cpf}
-        Sexo: {self.sexo}\t\tData de Nascimento: {self.data_nascimento}\t\tTelefone: {self.telefone}
-        {self.endereco}
-        CRO: {self.cro}\t\tEspecialidade: {self.especialidade}\t\tData de Engresso: {self.data_engresso}"""
+        saida = f"\n     Nome: {self.nome:30}CPF: {self.cpf:21}Data de Engresso: {self.data_engresso}\n"  
+        saida += f"     Data de Nascimento: {self.data_nascimento:16}Telefone: {self.telefone:16}CRO: {self.cro}\n"
+        saida += f"     Especialidade: {self.especialidade:21}Sexo: {self.sexo}\n"
         return saida

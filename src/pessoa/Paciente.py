@@ -12,8 +12,8 @@ class Paciente(Pessoa):
         self.nro_sus = nro_sus
 
     def __str__(self):
-        saida = f"\t\tNome: {self.nome}\t\tCPF: {self.cpf}\t\tNúmero do SUS: {self.nro_sus}\n\
-        Sexo: {self.sexo}\t\tData de Nascimento: {self.data_nascimento}\t\tTelefone: {self.telefone}\n\
-        {self.endereco}\n\
-        Altura: {self.altura}\t\tPeso: {self.peso}\n"
+        saida = f"\n     Nome: {self.nome:30}CPF: {self.cpf:21}Altura: {self.altura:.3}     Peso: {self.peso}\n"  
+        saida += f"     Data de Nascimento: {self.data_nascimento:16}Telefone: {self.telefone:16}SUS: {self.nro_sus:12}Sexo: {self.sexo}\n"
+        saida += f"     Endereço: {self.endereco.endereco:26}Bairro: {self.endereco.bairro}\n"
+        return saida
         return saida

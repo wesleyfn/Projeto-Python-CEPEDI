@@ -1,47 +1,17 @@
 from src.utils_functions.utils import *
 from src.prontuario.Prontuario import Prontuario
 
-def cadastro_pessoa():
-    nome = opcao('s', " > Digite o nome: ")
-    cpf = opcao('s', " > Digite o CPF: ")
-    sexo = opcao('s', " > Digite o sexo [M/F]: ")
-    data_nascimento = opcao('s', " > Digite a data de nascimento [dd/mm/aa]: ")
-    endereco = opcao('s', " > Digite o endereço: ")
-    bairro = opcao('s', " > Digite o bairro: ")
-    area = opcao('s', " > Digite a área [Comercial, Residencial, Rural...]: ")
-    endereco = Endereco(endereco, bairro, area)
-    telefone = opcao('s', " > Digite o telefone: ")
-
-    return nome, cpf, sexo, data_nascimento, endereco, telefone
-
-def menu_busca(nome_objeto, return_busca=False):
-    filtro_busca = filtros(nome_objeto)
-    people = find_people(f"{nome_objeto.lower()}s", filtro_busca)
-
-    if not people:
-        print(f" > {nome_objeto} não encontrado!\n")
-        return None
-    else:
-        if len(people) == 1:
-            print(f" > {len(people)} {nome_objeto.lower()} foi encontrado:\n")
+def menu_cadastro(ignore_print=-1):
+    while True:
+        op = 0
+        if ignore_print == -1:
+            print(" 1. Cadastrar Especialista\n"
+                  " 2. Cadastrar Paciente\n"
+                  " 3. Cadastrar Prontuário\n"
+                  " 0. Voltar")
+            op = opcao('i', " > Escolha a opção: ", 3)
         else:
-            print(f" > {len(people)} {nome_objeto.lower()}s foram encontrados:\n")
-        list_all(people, nome_objeto)
-
-        op = opcao('i', f" > Escolha o {nome_objeto.lower()}: ")
-        person = dict_to_obj(people[op - 1], nome_objeto)
-
-        if return_busca:
-            return person
-        print(f"{person}\n")
-
-def menu_cadastro():
-    loop_condition = True
-
-    while loop_condition:
-        print(" 1. Cadastrar Especialista\n 2. Cadastrar Paciente\n 3. Cadastrar Prontuário\n 0. Voltar")
-        op = opcao('i', " > Opção:")
-        print("")
+            op = ignore_print
 
         match op:
             case 1:
@@ -49,47 +19,129 @@ def menu_cadastro():
                 cro = opcao('s', " > Digite o CRO: ")
                 data_engresso = opcao('s', " > Digite a data de engresso [dd/mm/aa]: ")
                 especialidade = opcao('s', " > Digite a especialidade: ")
-                print("")
-                especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, telefone, cro, especialidade,
-                                            data_engresso)
-
+                especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, 
+                                            telefone, cro, especialidade, data_engresso)
+                
                 load_save.save_especialista(especialista)
             case 2:
                 nome, cpf, sexo, data_nascimento, endereco, telefone = cadastro_pessoa()
                 altura = opcao('f', " > Digite a altura: ")
                 peso = opcao('f', " > Digite o peso: ")
                 nro_sus = opcao('s', " > Digite o número do SUS: ")
-                print("\n")
-                paciente = Paciente(nome, cpf, sexo, data_nascimento, telefone, altura, peso, endereco, nro_sus)
+                paciente = Paciente(nome, cpf, sexo, data_nascimento, 
+                                    telefone, altura, peso, endereco, nro_sus)
 
                 load_save.save_paciente(paciente)
             case 3:
-                prontuario = Prontuario()
-                prontuario.inicializar_prontuario()
-
-                load_save.save_prontuario(prontuario)
+                
+                load_save.save_prontuario(cadastro_prontuario())
             case 0:
                 return
+        ignore_print = 0
+
+def cadastro_pessoa() -> tuple:
+    nome = opcao('s', " > Digite o nome: ")
+    cpf = opcao('s', " > Digite o CPF (apenas números): ")
+    sexo = opcao('s', " > Digite o sexo [M/F]: ")
+    data_nascimento = opcao('s', " > Digite a data de nascimento (dd/mm/aa): ")
+    endereco = opcao('s', " > Digite o endereço: ")
+    bairro = opcao('s', " > Digite o bairro: ")
+    endereco = Endereco(endereco, bairro)
+    telefone = opcao('s', " > Digite o telefone: ")
+
+    return nome, cpf, sexo, data_nascimento, endereco, telefone
+
+def cadastro_prontuario() -> Prontuario:
+    op = ""
+    prontuario = None
+    paciente_encontrado, especialista_encontrado = {}, {}
+    
+    # Paciente
+    pacientes = buscar_pessoas("pacientes")
+    if pacientes:
+        listar_encontrados(pacientes, "paciente")
+        op = opcao('i', f" > Escolha o paciente: ", len(pacientes))
+        paciente_encontrado = pacientes[op-1]
+    else:
+        op = opcao('s', "\n > Paciente não encontrado, cadastrar novo paciente? [s/n]: ")
+        if op == 's':
+            menu_cadastro(2)
+            paciente_encontrado = load_save.load_json("pacientes")[-1]
+        else:
+            return
+    
+    # Especialista
+    especialistas = buscar_pessoas("especialistas")
+    if especialistas:
+        listar_encontrados(especialistas, "especialista")
+        op = opcao('i', f" > Escolha o especialista: ", len(especialistas))
+        especialista_encontrado = especialistas[op-1]
+    else:
+        op = opcao('s', "\n > Especialista não encontrado, cadastrar novo especialista? [s/n]: ")
+        if op == 's':
+            menu_cadastro(1)
+            especialista_encontrado = load_save.load_json("especialistas")[-1]
+        else:
+            return
+        
+    data = opcao('s', " > Digite a data [dd/mm/aa]: ")
+    
+    prontuario = Prontuario(paciente_encontrado['nome'], data,
+                            especialista_encontrado['nome'])
+    while True:
+        prontuario.mostrar_consultas()
+        op = opcao('i', " > Escolha o tipo de consulta (0 p/sair): ", 4)
+        prontuario.add_consulta(op)
+        if op >= 0 and op < 5: break
+        
+    while True:   
+        prontuario.mostrar_patologias_L()
+        op = opcao('i', " > Selecione as patologias (0 p/sair): ", 28)
+        prontuario.add_patologia(op)
+        if op == 0: break
+
+    
+    return prontuario
+
+
+def menu_busca(tipo_pessoa, return_busca = False) -> Paciente:
+    people = buscar_pessoas(f"{tipo_pessoa}s")
+
+    if not people:
+        print(f"\n > {tipo_pessoa} não encontrado!\n")
+        return None
+    else:
+        if len(people) == 1:
+            print(f" > {len(people)} {tipo_pessoa} foi encontrado:\n")
+        else:
+            print(f" > {len(people)} {tipo_pessoa}s foram encontrados:\n")
+    
+        listar_encontrados(people, tipo_pessoa)
+
+        op = opcao('i', f" > Escolha o {tipo_pessoa}: ", len(people))
+        person = dict_to_obj(people[op - 1], tipo_pessoa)
+
+        if return_busca:
+            return person
+        print(person)
 
 def main_menu():
-    loop_condition = True
-    while loop_condition:
+    while True:
         print(" 1. Cadastros\n"
               " 2. Buscar Especialista\n"
               " 3. Buscar Paciente\n"
               " 4. Buscar Prontuário\n"
               " 0. Sair")
-        op = opcao('i', " > Digite a opção: ")
-        print("")
+        op = opcao('i', " > Escolha a opção: ", 4)
 
         match op:
             case 1:
                 menu_cadastro()
             case 2:
-                menu_busca("Especialista")
+                menu_busca("especialista")
             case 3:
-                menu_busca("Paciente")
+                menu_busca("paciente")
             case 4:
-                menu_busca("Prontuario") # Não está funcionando
+                menu_busca("prontuario") # Não está funcionando
             case 0:
                 return

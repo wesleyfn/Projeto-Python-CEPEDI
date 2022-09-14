@@ -1,80 +1,61 @@
-from src.pessoa.Especialista import Especialista
-from src.pessoa.Paciente import Paciente
-from src.pessoa.Responsavel import Responsavel
-from src.utils_functions import load_save
-from src.utils_functions import menu
-from src.utils_functions import utils
-
-def insere_itens(lista, nome_item) -> list:
-    while True:
-        novo_item = input(f"Novo {nome_item} ou digite 0 para sair: ")
-        if novo_item == '0':
-            break
-        else:
-            lista.append(novo_item)
-    return lista
-
-def imprime_tipo_consulta() -> list:
-    consultas = ["Urgencia", "Tratamento", "Revisão", "Primeira Consulta"]
-    return consultas
-
-def patologias() -> list:
-    lista_patologias = ["Alcoolismo_(Usa bebida alcóolica)", "Alergia", "Anemia", "Asma", "Cicatrização ruim",
-                        "Cirurgia realizada", "Desmaios", "Distúrbios Psicológicos", "Endocardite Bacteriana",
-                        "Epilepsia", "Febre Reumática", "Gravidez", "Hepatite", "Herpes/Afta",
-                        "HIV_(AIDS)", "Internação Hopitalar", "Pressão arterial Baixa ou Alta",
-                        "PNE_(Necessidades Especiais)", "Problema Cardíaco_(Coração)",
-                        "Problema Hepático_(Fígado)", "Problema Homonal", "Problema Renal_(Rim)",
-                        "Sífilis", "Tabagismo_(Fuma)", "Tatuagem", "Tuberculose", "Tumor", "Outras drogas"]
-    return lista_patologias
-
-def busca_pessoas_prontuario(nome_objeto):
-    while True:
-        person = menu.menu_busca(f"{nome_objeto}", return_busca=True)
-        if person is None:
-            op = utils.opcao("s", f'Deseja cadastrar {nome_objeto} [S/N]? ')
-            menu.menu_cadastro() if (op == 'S' or op == 's') else None
-        else:
-            return person
-
-def print_pathologies() -> None:
-    contador_linhas = int(0)
-    for doenca in patologias():
-        print(f"| {doenca}", end="")
-        contador_linhas += 1
-        if contador_linhas % 2 == 0:
-            print(" |")
-
 class Prontuario:
-    def __init__(self):
-        self.paciente = None
+    def __init__(self, nome_paciente: str, data: str, especialista: str):
+        self.nome_paciente = nome_paciente
+        self.especialista = especialista
+        self.data = data
+        
+        self.patologias = []
+        self.tipo_consulta = ""
+        self.procedimento = ""
+        
+        # Apenas para pacientes com idade < 18
         self.responsavel = None
-        self.consulta = None
-        self.data = None
-        self.patologia = []
-        self.procedimento = []
-        self.especialista = None
+    
+    def mostrar_consultas(self):
+        for i, consulta in enumerate(self.__lista_consultas(), 1):
+            print(f"   {i}. {consulta}")
+        return
+            
+    def add_consulta(self, escolhida: int):
+        self.tipo_consulta = self.__lista_consultas(escolhida)
+        
+    def mostrar_patologias_L(self):
+        x = ' '
+        for i, patologia in enumerate(self.__lista_patologias(), 1):
+            for j in self.patologias:
+                x = 'X' if (j == patologia) else ' '
 
-    def inicializar_prontuario(self) -> None:
-        self.data = input(" > Digite a data do procedimento [dd/mm/aa]: ")
-        self.paciente = busca_pessoas_prontuario('Paciente')
-        self.consulta = input(f" > Qual o tipo de consulta ({imprime_tipo_consulta()}):\n > ")
-
-        op = utils.opcao("s", f"Há responsável [S/N]?")
-        if op == 'S' or op == 's':
-            print("Digite as informações do responsável\n")
-            nome, cpf, sexo, data_nascimento, endereco, telefone = menu.cadastro_pessoa()
-            grau_parentesco = input("Digite o grau de parentesco: ")
-            self.responsavel = Responsavel(nome, cpf, sexo, data_nascimento, telefone, endereco, grau_parentesco)
-        else:
-            self.responsavel = "Não há"
-
-        self.especialista = busca_pessoas_prontuario('Especialista')
-
-        print(f"\n")
-        print(f" > Quais patologias o paciente possui?\n")
-        print_pathologies()
-        self.patologia = insere_itens(self.patologia, 'patologia')
-
-        print(f" > Quais procedimentos foram realizados no paciente {self.paciente.nome}?\n")
-        self.procedimento = insere_itens(self.procedimento, 'procedimento')
+            if i < 10:
+                print(f"  {i}. [{x}] {patologia:35}", end="")
+            else:
+                print(f" {i}. [{x}] {patologia:35}", end="")
+            if i%2 == 0:
+                print("")  
+             
+        return
+                
+    def add_patologia(self, escolhida: int):
+        self.patologias.append(self.__lista_patologias(escolhida))
+        
+    def __lista_patologias(self, escolhida: int = None) -> list:
+        lista = [
+            "Alcoolismo (Usa bebida alcóolica)", "Alergia", "Anemia", "Asma", "Cicatrização ruim",
+            "Cirurgia realizada", "Desmaios", "Distúrbios Psicológicos", "Endocardite Bacteriana",
+            "Epilepsia", "Febre Reumática", "Gravidez", "Hepatite", "Herpes/Afta", "HIV (AIDS)",
+            "Internação Hopitalar", "Pressão arterial Baixa ou Alta", "PNE (Necessidades Especiais)", 
+            "Problema Cardíaco_(Coração)", "Problema Hepático_(Fígado)", "Problema Homonal", 
+            "Problema Renal (Rim)", "Sífilis", "Tabagismo (Fuma)", "Tatuagem", "Tuberculose", "Tumor", 
+            "Outras drogas"
+        ]
+        if escolhida != None:
+            return lista[escolhida-1]
+        return lista
+    
+    def __lista_consultas(self, escolhida: int = None) -> list:
+        lista = ["Urgencia", "Tratamento", "Revisão", "Primeira Consulta"]
+        if escolhida != None:
+            return lista[escolhida-1]
+        return lista
+    
+    def add_procedimento(self, procedimento: str):
+        self.procedimento = procedimento
