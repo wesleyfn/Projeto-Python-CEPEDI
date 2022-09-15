@@ -31,9 +31,6 @@ def dict_to_obj(person, nome_objeto):
         person.add_consulta(consulta)
 
         return person
-    else:
-        person['endereco'] = Endereco(person['endereco']['endereco'],
-                                      person['endereco']['bairro'])
 
     if nome_objeto == "especialista":
         person = Especialista(person['nome'],

@@ -80,8 +80,6 @@ def cadastro_pessoa() -> tuple:
     sexo = opcao('s', " > Digite o sexo [M/F]: ")
     data_nascimento = opcao('s', " > Digite a data de nascimento (dd/mm/aa): ")
     endereco = opcao('s', " > Digite o endereço: ")
-    bairro = opcao('s', " > Digite o bairro: ")
-    endereco = Endereco(endereco, bairro)
     telefone = opcao('s', " > Digite o telefone: ")
 
     return nome, cpf, sexo, data_nascimento, endereco, telefone

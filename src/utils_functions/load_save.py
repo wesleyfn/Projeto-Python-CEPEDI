@@ -21,7 +21,6 @@ def salvar_paciente(paciente: Paciente) -> None:
         pacientes = []
     
     dict_paciente = paciente.__dict__
-    dict_paciente['endereco'] = paciente.endereco.__dict__
     pacientes.append(dict_paciente)
 
     path = os.path.abspath("../data/pacientes.json")
@@ -35,7 +34,6 @@ def salvar_especialista(especialista: Especialista):
         especialistas = []
         
     dict_especialista = especialista.__dict__
-    dict_especialista['endereco'] = especialista.endereco.__dict__
     especialistas.append(dict_especialista)
 
     path = os.path.abspath("../data/especialistas.json")

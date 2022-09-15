@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
-from src.pessoa.Endereco import Endereco
 
 class Pessoa(ABC):
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
-                 endereco: Endereco, telefone: str):
+                 endereco: str, telefone: str):
         self.nome = nome
         self.cpf = cpf
         self.sexo = sexo
