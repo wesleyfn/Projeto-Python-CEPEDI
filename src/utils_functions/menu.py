@@ -1,12 +1,13 @@
-from ast import match_case
 from src.utils_functions.utils import *
 from src.prontuario.Prontuario import Prontuario
+
 
 def iniciando():
     limpar_console()
     print(" Sistema Iniciado!")
     print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
     enter_continua()
+
 
 def menu_busca():
     op = ""
@@ -25,10 +26,10 @@ def menu_busca():
             case 2:
                 encontrar_listando("paciente")
             case 3:
-                encontrar_listando("prontuario") # Não está funcionando
+                encontrar_listando("prontuario")  # Não está funcionando
             case 0:
                 return
-                
+
 
 def menu_cadastro(ignore_print=-1):
     while True:
@@ -51,25 +52,27 @@ def menu_cadastro(ignore_print=-1):
                 cro = opcao('s', " > Digite o CRO: ")
                 data_engresso = opcao('s', " > Digite a data de engresso [dd/mm/aa]: ")
                 especialidade = opcao('s', " > Digite a especialidade: ")
-                especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco, 
+                especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco,
                                             telefone, cro, especialidade, data_engresso)
-                
+
                 load_save.save_especialista(especialista)
             case 2:
                 nome, cpf, sexo, data_nascimento, endereco, telefone = cadastro_pessoa()
                 altura = opcao('f', " > Digite a altura: ")
                 peso = opcao('f', " > Digite o peso: ")
                 nro_sus = opcao('s', " > Digite o número do SUS: ")
-                paciente = Paciente(nome, cpf, sexo, data_nascimento, 
+                paciente = Paciente(nome, cpf, sexo, data_nascimento,
                                     telefone, altura, peso, endereco, nro_sus)
 
                 load_save.save_paciente(paciente)
             case 3:
-                
-                load_save.save_prontuario(cadastro_prontuario())
+                prontuario = cadastro_prontuario()
+                if prontuario:
+                    load_save.save_prontuario(prontuario)
             case 0:
                 return
         ignore_print = 0
+
 
 def cadastro_pessoa() -> tuple:
     nome = opcao('s', " > Digite o nome: ")
@@ -86,57 +89,64 @@ def cadastro_pessoa() -> tuple:
 def cadastro_prontuario():
     op = ""
     paciente_encontrado, especialista_encontrado = {}, {}
-    
+
     # Paciente
-    limpar_console
+    limpar_console()
     barra(" Cadastro de Prontuario", 20)
     pacientes = buscar_pessoas("pacientes")
     if pacientes:
         listar_encontrados(pacientes, "paciente")
         op = opcao('i', f" > Escolha o paciente: ", len(pacientes))
-        paciente_encontrado = pacientes[op-1]
+        paciente_encontrado = pacientes[op - 1]
     else:
         op = opcao('s', "\n > Paciente não encontrado, cadastrar novo paciente? [s/n]: ")
         if op == 's':
             menu_cadastro(2)
             paciente_encontrado = load_save.load_json("pacientes")[-1]
         else:
-            return
-    
+            return None
+
+    responsavel = opcao('s', f" > Digite o nome do responsável: ")
+
     # Especialista
     especialistas = buscar_pessoas("especialistas")
     if especialistas:
         listar_encontrados(especialistas, "especialista")
         op = opcao('i', f" > Escolha o especialista: ", len(especialistas))
-        especialista_encontrado = especialistas[op-1]
+        especialista_encontrado = especialistas[op - 1]
     else:
         op = opcao('s', "\n > Especialista não encontrado, cadastrar novo especialista? [s/n]: ")
         if op == 's':
             menu_cadastro(1)
             especialista_encontrado = load_save.load_json("especialistas")[-1]
         else:
-            return
-        
+            return None
+
     data = opcao('s', " > Digite a data (dd/mm/aa): ")
-    
+
     prontuario = Prontuario(paciente_encontrado['nome'], data,
                             especialista_encontrado['nome'])
     while True:
         prontuario.mostrar_consultas()
         op = opcao('i', " > Escolha o tipo de consulta (0 p/sair): ", 4)
         prontuario.add_consulta(op)
-        if op >= 0 and op < 5: break
-        
-    while True:   
+        if 0 <= op < 5:
+            break
+
+    while True:
         prontuario.mostrar_patologias_L()
         op = opcao('i', " > Selecione as patologias (0 p/sair): ", 28)
         prontuario.add_patologia(op)
-        if op == 0: break
+        if op == 0:
+            break
+
+    procedimento = opcao("s", f"Digite o procedimento adotado: ")
+    prontuario.add_procedimento(procedimento)
 
     return prontuario
 
 
-def encontrar_listando(tipo_pessoa, return_busca = False) -> Paciente:
+def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
     people = buscar_pessoas(f"{tipo_pessoa}s")
 
     if not people:
@@ -147,7 +157,7 @@ def encontrar_listando(tipo_pessoa, return_busca = False) -> Paciente:
             print(f" > {len(people)} {tipo_pessoa} foi encontrado:\n")
         else:
             print(f" > {len(people)} {tipo_pessoa}s foram encontrados:\n")
-    
+
         listar_encontrados(people, tipo_pessoa)
 
         op = opcao('i', f" > Escolha o {tipo_pessoa}: ", len(people))
@@ -156,6 +166,7 @@ def encontrar_listando(tipo_pessoa, return_busca = False) -> Paciente:
         if return_busca:
             return person
         print(person)
+
 
 def main_menu():
     while True:

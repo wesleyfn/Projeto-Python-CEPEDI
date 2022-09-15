@@ -54,20 +54,3 @@ def save_prontuario(prontuario: Prontuario):
     path = os.path.abspath("../data/prontuarios.json")
     with open(path, 'w', encoding='utf-8') as json_file:
         json.dump(prontuarios, json_file, ensure_ascii=False, indent=3)
-        
-"""     paciente_temp = prontuario.paciente.__dict__
-    paciente_temp['endereco'] = prontuario.paciente.endereco.__dict__
-    dict_prontuario['paciente'] = paciente_temp
-
-    if isinstance(prontuario.responsavel, Responsavel):
-        responsavel_temp = prontuario.responsavel.__dict__
-        responsavel_temp['endereco'] = prontuario.responsavel.endereco.__dict__
-        dict_prontuario['responsavel'] = paciente_temp
-
-    especialista_temp = prontuario.especialista.__dict__
-    especialista_temp['endereco'] = prontuario.especialista.endereco.__dict__
-    dict_prontuario['especialista'] = especialista_temp
-
-    prontuarios.append(dict_prontuario) """
-
-

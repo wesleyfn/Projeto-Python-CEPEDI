@@ -1,29 +1,36 @@
 from src.pessoa.Pessoa import Pessoa
+from src.prontuario.Prontuario import Prontuario
 from src.utils_functions import load_save
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.pessoa.Endereco import Endereco
-from src.pessoa.Responsavel import Responsavel
 
 def limpar_console():
-    print("\n"*100)
+    print("\n" * 100)
 
 def enter_continua():
     input(" > Enter para continuar...")
-    
+
 def barra(title="", n=15):
     if title:
         print(f" {title}")
-    print("-="*n, end="-\n")
+    print("-=" * n, end="-\n")
 
 def dict_to_obj(person, nome_objeto):
-
     if nome_objeto == "prontuario":
-        aux_endereco = person['paciente']
-        aux_endereco['endereco'] = Endereco(aux_endereco['endereco']['endereco'],
-                                            aux_endereco['endereco']['bairro'],
-                                            aux_endereco['endereco']['area'])
+        procedimento = person['procedimento']
+        patologias = person['patologias']
+        consulta = person['tipo_consulta']
 
+        person = Prontuario(person['nome_paciente'],
+                            person['nome_especialista'],
+                            person['data'],
+                            person['nome_responsavel'])
+        person.add_procedimento(procedimento)
+        person.add_lista_patologias(patologias)
+        person.add_consulta(consulta)
+
+        return person
     else:
         person['endereco'] = Endereco(person['endereco']['endereco'],
                                       person['endereco']['bairro'])
@@ -51,7 +58,8 @@ def dict_to_obj(person, nome_objeto):
                           person['nro_sus'])
         return person
 
-def opcao(tipo: str, string: str, n_opcoes: int=0):
+
+def opcao(tipo: str, string: str, n_opcoes: int = 0):
     x = 0
     while True:
         try:
@@ -76,33 +84,31 @@ def opcao(tipo: str, string: str, n_opcoes: int=0):
         else:
             return x
 
+
 def gerar_filtro(onde_buscar: str) -> dict:
     filtro = {}
     limpar_console()
-    match onde_buscar:
-        case 'especialistas':  # Se a entrada for de números o filtro será o CPF
-            barra(" Especialista")
-            nome_cpf = opcao('s', " > Digite o nome ou CPF do especialista: ")
-            filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
 
-        case 'pacientes' | 'prontuarios':  # Se a entrada for de números o filtro será o CPF
-            barra(" Pacientes")
-            nome_cpf = opcao('s', " > Digite o nome ou CPF do paciente: ")
-            filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
+    barra(f"{onde_buscar.capitalize()}")
+    if onde_buscar != "prontuarios":
+        nome_cpf = opcao('s', f" > Digite o nome ou CPF do {onde_buscar[:-1:]}: ")
+        filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
+    else:
+        nome_paciente = opcao('s', f" > Digite o nome do paciente: ")
+        nome_especialista = opcao('s', f" > Digite o nome do especialista: ")
+        filtro = {"nome_paciente": nome_paciente, "nome_especialista": nome_especialista}
 
-        case outro:
-            print(" > Não há onde buscar!\n")
-            
     return filtro
+
 
 def buscar_pessoas(tipo_pessoa) -> list:
     filtro = gerar_filtro(tipo_pessoa)
     pessoas = load_save.load_json(tipo_pessoa)
     encontros = []
-    
-    if not pessoas: # retorna []
+
+    if not pessoas:  # retorna []
         return encontros
-    
+
     for pessoa in pessoas:
         encontrou = True
         for key, valor in filtro.items():
@@ -125,18 +131,19 @@ def buscar_pessoas(tipo_pessoa) -> list:
 
     return encontros
 
-def listar_encontrados(lista: Pessoa, tipo: str):
+
+def listar_encontrados(lista: Pessoa | list, tipo: str):
     limpar_console()
     match tipo:
         case "especialista":
-            barra( "Especialistas")
+            barra("Especialistas")
             print("")
             for i, pessoa in enumerate(lista, 1):
                 print(f"   {i}. Nome: {pessoa['nome']}, CRO: {pessoa['cpf']}"
                       f"\n      Especialidade: {pessoa['especialidade']}\n")
 
         case "paciente":
-            barra( "Pacientes")
+            barra("Pacientes")
             print("")
             for i, pessoa in enumerate(lista, 1):
                 print(f"   {i}. Nome: {pessoa['nome']}, CPF: {pessoa['cpf']}"
@@ -144,9 +151,14 @@ def listar_encontrados(lista: Pessoa, tipo: str):
 
         case "prontuario":
             for i, pessoa in enumerate(lista, 1):
-                paciente = pessoa['paciente']
-                especialista = pessoa['especialista']
+                nome_paciente = pessoa['nome_paciente']
+                nome_especialista = pessoa['nome_especialista']
+                data = pessoa['data']
+                tipo_consulta = pessoa['tipo_consulta']
+                procedimento = pessoa['procedimento']
 
-                """ print(f"\n  {i}. Paciente: {paciente['nome']}, Número do SUS: {paciente['nro_sus']}\n"
-                    f", Especialista: {especialista['nome']}, CRO: {especialista['cro']}\n" """
+                print(f"   {i}. Paciente: {nome_paciente}, Data: {data}\n"
+                      f"      Tipo de consulta: {tipo_consulta}\n"
+                      f"      Procedimento: {procedimento}\n"
+                      f"      Especialista: {nome_especialista}")
     barra()
