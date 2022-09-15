@@ -152,5 +152,19 @@
       "altura": 3.0,
       "peso": 33.0,
       "nro_sus": "3"
+   },
+   {
+      "nome": "Wessss",
+      "cpf": "5",
+      "sexo": "8",
+      "data_nascimento": "9",
+      "endereco": {
+         "endereco": "8",
+         "bairro": "5"
+      },
+      "telefone": "4",
+      "altura": 2.0,
+      "peso": 1.0,
+      "nro_sus": "8"
    }
 ]

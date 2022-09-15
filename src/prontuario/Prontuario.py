@@ -20,22 +20,23 @@ class Prontuario:
         self.tipo_consulta = self.__lista_consultas(escolhida)
         
     def mostrar_patologias_L(self):
-        x = ' '
+        x = [' ']*29
         for i, patologia in enumerate(self.__lista_patologias(), 1):
             for j in self.patologias:
-                x = 'X' if (j == patologia) else ' '
+                if j == patologia:
+                    x[i-1] = 'X'
 
             if i < 10:
-                print(f"  {i}. [{x}] {patologia:35}", end="")
+                print(f"  {i}. [{x[i-1]}] {patologia:35}", end="")
             else:
-                print(f" {i}. [{x}] {patologia:35}", end="")
+                print(f" {i}. [{x[i-1]}] {patologia:35}", end="")
             if i%2 == 0:
-                print("")  
-             
+                print("")
         return
                 
     def add_patologia(self, escolhida: int):
         self.patologias.append(self.__lista_patologias(escolhida))
+        self.patologias = list(set(self.patologias))
         
     def __lista_patologias(self, escolhida: int = None) -> list:
         lista = [
@@ -43,7 +44,7 @@ class Prontuario:
             "Cirurgia realizada", "Desmaios", "Distúrbios Psicológicos", "Endocardite Bacteriana",
             "Epilepsia", "Febre Reumática", "Gravidez", "Hepatite", "Herpes/Afta", "HIV (AIDS)",
             "Internação Hopitalar", "Pressão arterial Baixa ou Alta", "PNE (Necessidades Especiais)", 
-            "Problema Cardíaco_(Coração)", "Problema Hepático_(Fígado)", "Problema Homonal", 
+            "Problema Cardíaco (Coração)", "Problema Hepático (Fígado)", "Problema Homonal", 
             "Problema Renal (Rim)", "Sífilis", "Tabagismo (Fuma)", "Tatuagem", "Tuberculose", "Tumor", 
             "Outras drogas"
         ]

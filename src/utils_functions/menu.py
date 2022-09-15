@@ -1,14 +1,46 @@
+from ast import match_case
 from src.utils_functions.utils import *
 from src.prontuario.Prontuario import Prontuario
 
+def iniciando():
+    limpar_console()
+    print(" Sistema Iniciado!")
+    print("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+    enter_continua()
+
+def menu_busca():
+    op = ""
+    while True:
+        limpar_console()
+        barra(" Buscar")
+        print(" 1. Especialista\n"
+              " 2. Paciente\n"
+              " 3. Prontuario\n"
+              " 0. Voltar")
+        barra()
+        op = opcao('i', " > Escolha a opção: ")
+        match op:
+            case 1:
+                encontrar_listando("especialista")
+            case 2:
+                encontrar_listando("paciente")
+            case 3:
+                encontrar_listando("prontuario") # Não está funcionando
+            case 0:
+                return
+                
+
 def menu_cadastro(ignore_print=-1):
     while True:
+        limpar_console()
+        barra(" Cadastrar")
         op = 0
         if ignore_print == -1:
-            print(" 1. Cadastrar Especialista\n"
-                  " 2. Cadastrar Paciente\n"
-                  " 3. Cadastrar Prontuário\n"
+            print(" 1. Especialista\n"
+                  " 2. Paciente\n"
+                  " 3. Prontuário\n"
                   " 0. Voltar")
+            barra()
             op = opcao('i', " > Escolha a opção: ", 3)
         else:
             op = ignore_print
@@ -51,12 +83,13 @@ def cadastro_pessoa() -> tuple:
 
     return nome, cpf, sexo, data_nascimento, endereco, telefone
 
-def cadastro_prontuario() -> Prontuario:
+def cadastro_prontuario():
     op = ""
-    prontuario = None
     paciente_encontrado, especialista_encontrado = {}, {}
     
     # Paciente
+    limpar_console
+    barra(" Cadastro de Prontuario", 20)
     pacientes = buscar_pessoas("pacientes")
     if pacientes:
         listar_encontrados(pacientes, "paciente")
@@ -84,7 +117,7 @@ def cadastro_prontuario() -> Prontuario:
         else:
             return
         
-    data = opcao('s', " > Digite a data [dd/mm/aa]: ")
+    data = opcao('s', " > Digite a data (dd/mm/aa): ")
     
     prontuario = Prontuario(paciente_encontrado['nome'], data,
                             especialista_encontrado['nome'])
@@ -100,11 +133,10 @@ def cadastro_prontuario() -> Prontuario:
         prontuario.add_patologia(op)
         if op == 0: break
 
-    
     return prontuario
 
 
-def menu_busca(tipo_pessoa, return_busca = False) -> Paciente:
+def encontrar_listando(tipo_pessoa, return_busca = False) -> Paciente:
     people = buscar_pessoas(f"{tipo_pessoa}s")
 
     if not people:
@@ -127,21 +159,18 @@ def menu_busca(tipo_pessoa, return_busca = False) -> Paciente:
 
 def main_menu():
     while True:
-        print(" 1. Cadastros\n"
-              " 2. Buscar Especialista\n"
-              " 3. Buscar Paciente\n"
-              " 4. Buscar Prontuário\n"
+        limpar_console()
+        barra(" Menu Principal")
+        print(" 1. Cadastrar\n"
+              " 2. Buscar\n"
               " 0. Sair")
+        barra()
         op = opcao('i', " > Escolha a opção: ", 4)
 
         match op:
             case 1:
                 menu_cadastro()
             case 2:
-                menu_busca("especialista")
-            case 3:
-                menu_busca("paciente")
-            case 4:
-                menu_busca("prontuario") # Não está funcionando
+                menu_busca()
             case 0:
                 return

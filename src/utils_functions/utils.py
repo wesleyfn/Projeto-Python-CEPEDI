@@ -5,6 +5,17 @@ from src.pessoa.Paciente import Paciente
 from src.pessoa.Endereco import Endereco
 from src.pessoa.Responsavel import Responsavel
 
+def limpar_console():
+    print("\n"*100)
+
+def enter_continua():
+    input(" > Enter para continuar...")
+    
+def barra(title="", n=15):
+    if title:
+        print(f" {title}")
+    print("-="*n, end="-\n")
+
 def dict_to_obj(person, nome_objeto):
 
     if nome_objeto == "prontuario":
@@ -67,12 +78,15 @@ def opcao(tipo: str, string: str, n_opcoes: int=0):
 
 def gerar_filtro(onde_buscar: str) -> dict:
     filtro = {}
+    limpar_console()
     match onde_buscar:
         case 'especialistas':  # Se a entrada for de números o filtro será o CPF
+            barra(" Especialista")
             nome_cpf = opcao('s', " > Digite o nome ou CPF do especialista: ")
             filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
 
         case 'pacientes' | 'prontuarios':  # Se a entrada for de números o filtro será o CPF
+            barra(" Pacientes")
             nome_cpf = opcao('s', " > Digite o nome ou CPF do paciente: ")
             filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
 
@@ -112,13 +126,18 @@ def buscar_pessoas(tipo_pessoa) -> list:
     return encontros
 
 def listar_encontrados(lista: Pessoa, tipo: str):
+    limpar_console()
     match tipo:
         case "especialista":
+            barra( "Especialistas")
+            print("")
             for i, pessoa in enumerate(lista, 1):
                 print(f"   {i}. Nome: {pessoa['nome']}, CRO: {pessoa['cpf']}"
                       f"\n      Especialidade: {pessoa['especialidade']}\n")
 
         case "paciente":
+            barra( "Pacientes")
+            print("")
             for i, pessoa in enumerate(lista, 1):
                 print(f"   {i}. Nome: {pessoa['nome']}, CPF: {pessoa['cpf']}"
                       f"\n      Data de Nascimento: {pessoa['data_nascimento']}\n")
@@ -128,6 +147,6 @@ def listar_encontrados(lista: Pessoa, tipo: str):
                 paciente = pessoa['paciente']
                 especialista = pessoa['especialista']
 
-                print(f" {i}. Paciente: {paciente['nome']}, Número do SUS: {paciente['nro_sus']}\n"
-                    f", Especialista: {especialista['nome']}, CRO: {especialista['cro']}\n"
-                    f"Data do prontuário: {pessoa['data']}")
+                """ print(f"\n  {i}. Paciente: {paciente['nome']}, Número do SUS: {paciente['nro_sus']}\n"
+                    f", Especialista: {especialista['nome']}, CRO: {especialista['cro']}\n" """
+    barra()

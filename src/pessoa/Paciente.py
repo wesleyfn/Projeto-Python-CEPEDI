@@ -16,4 +16,3 @@ class Paciente(Pessoa):
         saida += f"     Data de Nascimento: {self.data_nascimento:16}Telefone: {self.telefone:16}SUS: {self.nro_sus:12}Sexo: {self.sexo}\n"
         saida += f"     Endereço: {self.endereco.endereco:26}Bairro: {self.endereco.bairro}\n"
         return saida
-        return saida
