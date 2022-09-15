@@ -6,6 +6,24 @@ def iniciando():
     barra("Sistema Iniciado!")
     enter_continua()
 
+def menu_principal():
+    while True:
+        limpar_console()
+        barra(" Menu Principal")
+        print(" 1. Cadastrar\n"
+              " 2. Buscar\n"
+              " 0. Sair")
+        barra()
+        op = opcao('i', " > Escolha a opção: ", 4)
+
+        match op:
+            case 1:
+                menu_cadastro()
+            case 2:
+                menu_busca()
+            case 0:
+                return
+
 def menu_busca():
     op = ""
     while True:
@@ -27,7 +45,6 @@ def menu_busca():
                 encontrar_listando("prontuario")
             case 0:
                 return
-
 
 def menu_cadastro(ignore_print=-1):
     while True:
@@ -71,7 +88,6 @@ def menu_cadastro(ignore_print=-1):
             case 0:
                 return
         ignore_print = 0
-
 
 def cadastro_pessoa() -> tuple:
     barra("Cadastrando...")
@@ -127,7 +143,7 @@ def cadastro_prontuario():
 
     prontuario = Prontuario(paciente_encontrado['nome'], data,
                             especialista_encontrado['nome'],
-                            responsavel)
+                            responsavel, paciente_encontrado['cpf'])
     while True:
         prontuario.mostrar_consultas()
         op = opcao('i', " > Escolha o tipo de consulta (0 p/sair): ", 4)
@@ -148,9 +164,8 @@ def cadastro_prontuario():
 
     return prontuario
 
-
 def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
-    resposta_s = ['s', 'sim', 'yes', 'y']
+    resposta_s = ['s', 'sim']
 
     pessoas = buscar_pessoas(f"{tipo_pessoa}s")
     if not pessoas:
@@ -167,54 +182,38 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
 
         op = opcao('i', f" > Escolha o {tipo_pessoa}: ", len(pessoas))
         pessoa_selecionado = pessoas[op - 1]
-        pessoa = dict_to_obj(pessoas[op - 1], tipo_pessoa)
+        pessoa = dicionario_objeto(pessoas[op - 1], tipo_pessoa)
 
         if return_busca:
             return pessoa
-        print(pessoa)
+        
+        if isinstance(pessoa, Prontuario):
+            print(mostrar_prontuario(pessoa))
+        else:
+            print(pessoa)
 
-        op = opcao('i', f" > Escolha o 1 para deletar, 0 para sair: ")
-        if op == 1:
+        op = opcao('i', f" > Digite 1 para atualizar (0 para sair): ")
+        if op == 2:
             for i, pessoa_atual in enumerate(pessoas):
                 if pessoa_atual == pessoa_selecionado:
                     del pessoas[i]
 
                     load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
-        elif op == 2:
+        elif op == 1:
             for i, pessoa_atual in enumerate(pessoas):
                 if pessoa_atual == pessoa_selecionado:
                     for chave, valor in pessoa_selecionado.items():
-                        print(f"{chave.capitalize()}: {valor}")
+                        print(f"\n > {chave.capitalize()}: {valor}")
                         op = opcao('s', f" > Deseja atualizar esse campo [s/n]?: ")
 
                         if op in resposta_s:
                             novo_valor = None
 
                             if isinstance(valor, float):
-                                novo_valor = opcao("i", f"Digite o novo {chave}: ")
+                                novo_valor = opcao("i", f" > Digite o novo {chave}: ")
                             elif isinstance(valor, str):
-                                novo_valor = opcao("s", f"Digite o novo {chave}: ")
+                                novo_valor = opcao("s", f" > Digite o novo {chave}: ")
 
                             pessoa_selecionado[chave] = novo_valor
                 pessoas[i] = pessoa_selecionado
                 load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
-
-        enter_continua()
-
-def menu_principal():
-    while True:
-        limpar_console()
-        barra(" Menu Principal")
-        print(" 1. Cadastrar\n"
-              " 2. Buscar\n"
-              " 0. Sair")
-        barra()
-        op = opcao('i', " > Escolha a opção: ", 4)
-
-        match op:
-            case 1:
-                menu_cadastro()
-            case 2:
-                menu_busca()
-            case 0:
-                return

@@ -1,9 +1,9 @@
+from errno import ECONNABORTED
 from src.pessoa.Pessoa import Pessoa
 from src.prontuario.Prontuario import Prontuario
 from src.utils_functions import load_save
 from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
-from src.pessoa.Endereco import Endereco
 
 def limpar_console():
     print("\n" * 100)
@@ -16,7 +16,7 @@ def barra(title="", n=15):
         print(f" {title}")
     print("-=" * n, end="-\n")
 
-def dict_to_obj(person, nome_objeto):
+def dicionario_objeto(person, nome_objeto):
     if nome_objeto == "prontuario":
         procedimento = person['procedimento']
         patologias = person['patologias']
@@ -25,7 +25,8 @@ def dict_to_obj(person, nome_objeto):
         person = Prontuario(person['nome_paciente'],
                             person['nome_especialista'],
                             person['data'],
-                            person['nome_responsavel'])
+                            person['nome_responsavel'],
+                            person['cpf'])
         person.add_procedimento(procedimento)
         person.add_lista_patologias(patologias)
         person.add_consulta(consulta)
@@ -55,7 +56,6 @@ def dict_to_obj(person, nome_objeto):
                           person['nro_sus'])
         return person
 
-
 def opcao(tipo: str, string: str, n_opcoes: int = 0):
     x = 0
     while True:
@@ -81,7 +81,6 @@ def opcao(tipo: str, string: str, n_opcoes: int = 0):
         else:
             return x
 
-
 def gerar_filtro(onde_buscar: str) -> dict:
     filtro = {}
     if onde_buscar != "prontuarios":
@@ -89,11 +88,9 @@ def gerar_filtro(onde_buscar: str) -> dict:
         filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
     else:
         nome_paciente = opcao('s', f" > Digite o nome do paciente: ")
-        nome_especialista = opcao('s', f" > Digite o nome do especialista: ")
-        filtro = {"nome_paciente": nome_paciente, "nome_especialista": nome_especialista}
+        filtro = {"nome_paciente": nome_paciente}
 
     return filtro
-
 
 def buscar_pessoas(tipo_pessoa) -> list:
     filtro = gerar_filtro(tipo_pessoa)
@@ -149,3 +146,21 @@ def listar_encontrados(lista: Pessoa | list, tipo: str):
                       f"      Procedimento: {procedimento}\n"
                       f"      Especialista: {nome_especialista}")
     barra()
+
+def mostrar_prontuario(prontuario: Prontuario):
+    pessoas = load_save.carregar_json("pacientes")
+    encontrada = None
+    for pessoa in pessoas:
+        if pessoa["cpf"] == prontuario.cpf:
+            encontrada = pessoa
+    
+    print(f"\n     Paciente: {encontrada['nome']:40} CPF: {encontrada['cpf']:21} SUS: {encontrada['nro_sus']}\n"
+            f"     Altura: {encontrada['altura']:.3}     Peso: {encontrada['peso']}     Sexo: {encontrada['sexo']:10}"  
+            f"Telefone: {encontrada['telefone']:15}\n     Responsável: {prontuario.nome_responsavel}\n"
+            f"     Endereço: {encontrada['endereco']}\n"
+            f"     Tipo de consulta: {prontuario.tipo_consulta:20} Procedimento: {prontuario.procedimento}\n"
+            f"     Patologias: {prontuario.mostrar_patologias_S()}\n"
+            f"     Especialista: {prontuario.nome_especialista:40} Data da consulta: {prontuario.data}\n")
+    
+    
+    

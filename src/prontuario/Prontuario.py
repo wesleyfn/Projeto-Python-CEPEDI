@@ -1,13 +1,14 @@
 class Prontuario:
-    def __init__(self, nome_paciente: str, data: str, nome_especialista: str, nome_responsavel: str):
+    def __init__(self, nome_paciente: str, data: str, nome_especialista: str, nome_responsavel: str, cpf: str):
         self.nome_paciente = nome_paciente
         self.nome_responsavel = nome_responsavel
         self.nome_especialista = nome_especialista
         self.data = data
+        self.cpf = cpf
 
         self.patologias = []
-        self.tipo_consulta = None
-        self.procedimento = None
+        self.tipo_consulta = ""
+        self.procedimento = ""
 
     def mostrar_consultas(self):
         for i, consulta in enumerate(self.__lista_consultas(), 1):
@@ -35,6 +36,16 @@ class Prontuario:
                 print("")
         return
 
+    def mostrar_patologias_S(self) -> str:
+        string = ""
+        for i, patologia in enumerate(self.patologias):
+            if i > 0 and i%3 != 0:
+                string += ','
+            else:
+                string += '\n         '
+            string += f" {patologia}"
+        return string 
+    
     def add_patologia(self, escolhida: int):
         self.patologias.append(self.__lista_patologias(escolhida))
         self.patologias = list(set(self.patologias))
@@ -64,6 +75,3 @@ class Prontuario:
 
     def add_procedimento(self, procedimento: str):
         self.procedimento = procedimento
-
-    def __str__(self):
-        return "Teste"
