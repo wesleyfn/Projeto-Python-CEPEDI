@@ -1,7 +1,6 @@
 from src.utils_functions.utils import *
 from src.prontuario.Prontuario import Prontuario
 
-
 def iniciando():
     limpar_console()
     barra("Sistema Iniciado!")
@@ -25,7 +24,7 @@ def menu_busca():
             case 2:
                 encontrar_listando("paciente")
             case 3:
-                encontrar_listando("prontuario")  # Não está funcionando
+                encontrar_listando("prontuario")
             case 0:
                 return
 
@@ -90,7 +89,7 @@ def cadastro_pessoa() -> tuple:
 def cadastro_prontuario():
     op = ""
     paciente_encontrado, especialista_encontrado = {}, {}
-    resposta_s = ['s','sim']
+    resposta_s = ['s','sim', 'yes']
 
     # Paciente
     limpar_console()
@@ -153,6 +152,8 @@ def cadastro_prontuario():
 
 
 def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
+    resposta_s = ['s', 'sim', 'yes', 'y']
+
     pessoas = buscar_pessoas(f"{tipo_pessoa}s")
     if not pessoas:
         print(f"\n > {tipo_pessoa} não encontrado!\n")
@@ -167,13 +168,40 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
         listar_encontrados(pessoas, tipo_pessoa)
 
         op = opcao('i', f" > Escolha o {tipo_pessoa}: ", len(pessoas))
-        person = dict_to_obj(pessoas[op - 1], tipo_pessoa)
+        pessoa_selecionado = pessoas[op - 1]
+        pessoa = dict_to_obj(pessoas[op - 1], tipo_pessoa)
 
         if return_busca:
-            return person
-        print(person)
-        enter_continua()
+            return pessoa
+        print(pessoa)
 
+        op = opcao('i', f" > Escolha o 1 para deletar, 0 para sair: ")
+        if op == 1:
+            for i, pessoa_atual in enumerate(pessoas):
+                if pessoa_atual == pessoa_selecionado:
+                    del pessoas[i]
+
+                    load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
+        elif op == 2:
+            for i, pessoa_atual in enumerate(pessoas):
+                if pessoa_atual == pessoa_selecionado:
+                    for chave, valor in pessoa_selecionado.items():
+                        print(f"{chave.capitalize()}: {valor}")
+                        op = opcao('s', f" > Deseja atualizar esse campo [s/n]?: ")
+
+                        if op in resposta_s:
+                            novo_valor = None
+
+                            if isinstance(valor, float):
+                                novo_valor = opcao("i", f"Digite o novo {chave}: ")
+                            elif isinstance(valor, str):
+                                novo_valor = opcao("s", f"Digite o novo {chave}: ")
+
+                            pessoa_selecionado[chave] = novo_valor
+                pessoas[i] = pessoa_selecionado
+                load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
+
+        enter_continua()
 
 def menu_principal():
     while True:

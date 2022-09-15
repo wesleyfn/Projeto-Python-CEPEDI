@@ -123,7 +123,6 @@ def buscar_pessoas(tipo_pessoa) -> list:
 
     return encontros
 
-
 def listar_encontrados(lista: Pessoa | list, tipo: str):
     match tipo:
         case "especialista":
