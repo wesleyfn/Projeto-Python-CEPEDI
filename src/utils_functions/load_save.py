@@ -3,7 +3,7 @@ from src.pessoa.Especialista import Especialista
 from src.pessoa.Paciente import Paciente
 from src.prontuario.Prontuario import Prontuario
 
-def load_json(name_json):
+def carregar_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")
     try:
         with open(path, 'r', encoding='utf-8') as json_file:
@@ -14,8 +14,8 @@ def load_json(name_json):
         with open(path, 'w', encoding='utf-8') as json_file:
             return None
 
-def save_paciente(paciente: Paciente) -> None:
-    pacientes = load_json("pacientes")
+def salvar_paciente(paciente: Paciente) -> None:
+    pacientes = carregar_json("pacientes")
     
     if pacientes is None:
         pacientes = []
@@ -28,8 +28,8 @@ def save_paciente(paciente: Paciente) -> None:
     with open(path, 'w', encoding='utf-8') as json_file:
         json.dump(pacientes, json_file, ensure_ascii=False, indent=3)
 
-def save_especialista(especialista: Especialista):
-    especialistas = load_json("especialistas")
+def salvar_especialista(especialista: Especialista):
+    especialistas = carregar_json("especialistas")
     
     if especialistas is None:
         especialistas = []
@@ -42,8 +42,8 @@ def save_especialista(especialista: Especialista):
     with open(path, 'w', encoding='utf-8') as json_file:
         json.dump(especialistas, json_file, ensure_ascii=False, indent=3)
 
-def save_prontuario(prontuario: Prontuario):
-    prontuarios = load_json("prontuarios")
+def salvar_prontuario(prontuario: Prontuario):
+    prontuarios = carregar_json("prontuarios")
         
     if prontuarios is None:
         prontuarios = []

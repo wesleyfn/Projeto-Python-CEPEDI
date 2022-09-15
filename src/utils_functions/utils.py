@@ -87,9 +87,6 @@ def opcao(tipo: str, string: str, n_opcoes: int = 0):
 
 def gerar_filtro(onde_buscar: str) -> dict:
     filtro = {}
-    limpar_console()
-
-    barra(f"{onde_buscar.capitalize()}")
     if onde_buscar != "prontuarios":
         nome_cpf = opcao('s', f" > Digite o nome ou CPF do {onde_buscar[:-1:]}: ")
         filtro = {"cpf": nome_cpf} if nome_cpf.isnumeric() else {"nome": nome_cpf}
@@ -103,7 +100,7 @@ def gerar_filtro(onde_buscar: str) -> dict:
 
 def buscar_pessoas(tipo_pessoa) -> list:
     filtro = gerar_filtro(tipo_pessoa)
-    pessoas = load_save.load_json(tipo_pessoa)
+    pessoas = load_save.carregar_json(tipo_pessoa)
     encontros = []
 
     if not pessoas:  # retorna []
@@ -115,16 +112,11 @@ def buscar_pessoas(tipo_pessoa) -> list:
             if valor is None or pessoa[key] is None:
                 continue
 
-            elif key != 'paciente' and pessoa[key].isnumeric() and valor.isnumeric():
+            elif pessoa[key].isnumeric() and valor.isnumeric():
                 if pessoa[key] != valor:
                     encontrou = False
-
-            elif key == 'paciente':
-                paciente = pessoa['paciente']
-                if paciente['nome'] != valor['nome'] and paciente['cpf'] != valor['cpf']:
-                    encontrou = False
-
-            elif pessoa[key].lower() != valor.lower():
+            
+            elif valor.lower() not in pessoa[key].lower():
                 encontrou = False
         if encontrou:
             encontros.append(pessoa)
@@ -133,7 +125,6 @@ def buscar_pessoas(tipo_pessoa) -> list:
 
 
 def listar_encontrados(lista: Pessoa | list, tipo: str):
-    limpar_console()
     match tipo:
         case "especialista":
             barra("Especialistas")
