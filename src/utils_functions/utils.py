@@ -23,8 +23,8 @@ def dicionario_objeto(person, nome_objeto):
         consulta = person['tipo_consulta']
 
         person = Prontuario(person['nome_paciente'],
-                            person['nome_especialista'],
                             person['data'],
+                            person['nome_especialista'],
                             person['nome_responsavel'],
                             person['cpf'])
         person.add_procedimento(procedimento)
