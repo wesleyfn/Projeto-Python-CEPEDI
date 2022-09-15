@@ -125,7 +125,8 @@ def cadastro_prontuario():
     data = opcao('s', " > Digite a data (dd/mm/aa): ")
 
     prontuario = Prontuario(paciente_encontrado['nome'], data,
-                            especialista_encontrado['nome'])
+                            especialista_encontrado['nome'],
+                            responsavel)
     while True:
         prontuario.mostrar_consultas()
         op = opcao('i', " > Escolha o tipo de consulta (0 p/sair): ", 4)
