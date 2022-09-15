@@ -1,7 +1,7 @@
 class Prontuario:
-    def __init__(self, nome_paciente: str, data: str, especialista: str):
+    def __init__(self, nome_paciente: str, data: str, nome_especialista: str):
         self.nome_paciente = nome_paciente
-        self.especialista = especialista
+        self.nome_especialista = nome_especialista
         self.data = data
         
         self.patologias = []
