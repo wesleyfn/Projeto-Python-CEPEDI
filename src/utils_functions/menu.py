@@ -71,7 +71,7 @@ def menu_cadastro(ignore_print=-1):
                 especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco,
                                             telefone, cro, especialidade, data_engresso)
 
-                load_save.salvar_especialista(especialista)
+                load_save.salvar_json(especialista, "especialistas")
             case 2:
                 nome, cpf, sexo, data_nascimento, endereco, telefone = cadastro_pessoa()
                 altura = opcao('f', " > Digite a altura: ")
@@ -80,7 +80,7 @@ def menu_cadastro(ignore_print=-1):
                 paciente = Paciente(nome, cpf, sexo, data_nascimento,
                                     telefone, altura, peso, endereco, nro_sus)
 
-                load_save.salvar_paciente(paciente)
+                load_save.salvar_json(paciente, "pacientes")
             case 3:
                 prontuario = cadastro_prontuario()
                 if prontuario:
@@ -194,12 +194,14 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
 
         op = opcao('i', f" > Digite 1 para atualizar (0 para sair): ")
         if op == 2:
+            pessoas = load_save.carregar_json(f"{tipo_pessoa}s")
             for i, pessoa_atual in enumerate(pessoas):
                 if pessoa_atual == pessoa_selecionado:
                     del pessoas[i]
 
                     load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
         elif op == 1:
+            pessoas = load_save.carregar_json(f"{tipo_pessoa}s")
             for i, pessoa_atual in enumerate(pessoas):
                 if pessoa_atual == pessoa_selecionado:
                     for chave, valor in pessoa_selecionado.items():
@@ -215,5 +217,5 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
                                 novo_valor = opcao("s", f" > Digite o novo {chave}: ")
 
                             pessoa_selecionado[chave] = novo_valor
-                pessoas[i] = pessoa_selecionado
+                    pessoas[i] = pessoa_selecionado
                 load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
