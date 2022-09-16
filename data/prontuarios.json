@@ -1,32 +1,16 @@
 [
    {
-      "nome_paciente": "igor",
-      "nome_responsavel": "Wesley",
-      "nome_especialista": "Igor",
+      "nome_paciente": "joao",
+      "nome_responsavel": "Alex",
+      "nome_especialista": "Brenno",
       "data": "15/09/2022",
-      "cpf": "4654",
+      "cpf": "48556465",
       "patologias": [
-         "Cicatrização ruim",
-         "Endocardite Bacteriana",
-         "Febre Reumática",
-         "Alergia",
+         "Problema Cardíaco (Coração)",
          "Outras drogas",
          "Alcoolismo (Usa bebida alcóolica)"
       ],
-      "tipo_consulta": "Revisão",
-      "procedimento": "Clinca Geral"
-   },
-   {
-      "nome_paciente": "igor",
-      "nome_responsavel": "o",
-      "nome_especialista": "Igor",
-      "data": "8",
-      "cpf": "4654",
-      "patologias": [
-         "Alergia",
-         "Outras drogas"
-      ],
-      "tipo_consulta": "Urgencia",
-      "procedimento": "s"
+      "tipo_consulta": "Tratamento",
+      "procedimento": "Clareamento Dental"
    }
 ]

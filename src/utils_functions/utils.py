@@ -1,4 +1,3 @@
-from errno import ECONNABORTED
 from src.pessoa.Pessoa import Pessoa
 from src.prontuario.Prontuario import Prontuario
 from src.utils_functions import load_save

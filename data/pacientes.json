@@ -1,24 +1,13 @@
 [
    {
-      "nome": "Wesley",
-      "cpf": "48565495",
+      "nome": "Wesley Francisco Nascimento",
+      "cpf": "86258636551",
       "sexo": "M",
-      "data_nascimento": "20/08/2005",
-      "endereco": "Rua rua",
-      "telefone": "739886558854",
-      "altura": 2.15,
-      "peso": 210.0,
+      "data_nascimento": "20/08/1995",
+      "endereco": "Rua Bom Jesus, São Pedro",
+      "telefone": "73 988655854",
+      "altura": 1.7,
+      "peso": 8.0,
       "nro_sus": "11561846512"
-   },
-   {
-      "nome": "igor",
-      "cpf": "4654",
-      "sexo": "8",
-      "data_nascimento": "65",
-      "endereco": "8",
-      "telefone": "65",
-      "altura": 8.0,
-      "peso": 65.0,
-      "nro_sus": "56"
    }
 ]

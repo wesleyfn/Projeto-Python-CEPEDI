@@ -1,12 +1,10 @@
 from src.pessoa.Pessoa import Pessoa
 
 class Especialista(Pessoa):
-    # Construtor
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  endereco: str, telefone: str, cro: str, especialidade: str,
                  data_engresso: str):
 
-        # Construtor da classe herdada (Pessoa)
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
         self.cro = cro
         self.data_engresso = data_engresso
