@@ -1,4 +1,4 @@
-from src.utils_functions import menu
+from src.utils_functions import menus
 
-menu.iniciando()
-menu.menu_principal()
+menus.iniciando()
+menus.menu_principal()

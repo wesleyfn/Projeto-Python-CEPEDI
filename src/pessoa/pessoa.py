@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 class Pessoa(ABC):
+    # Construtor
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  endereco: str, telefone: str):
         self.nome = nome

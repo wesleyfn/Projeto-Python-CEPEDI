@@ -1,4 +1,5 @@
 class Prontuario:
+    # Construtor
     def __init__(self, nome_paciente: str, data: str, nome_especialista: str, nome_responsavel: str, cpf: str):
         self.nome_paciente = nome_paciente
         self.nome_responsavel = nome_responsavel
@@ -55,13 +56,11 @@ class Prontuario:
 
     def __lista_patologias(self, escolhida: int = None) -> list:
         lista = [
-            "Alcoolismo (Usa bebida alcóolica)", "Alergia", "Anemia", "Asma", "Cicatrização ruim",
-            "Cirurgia realizada", "Desmaios", "Distúrbios Psicológicos", "Endocardite Bacteriana",
-            "Epilepsia", "Febre Reumática", "Gravidez", "Hepatite", "Herpes/Afta", "HIV (AIDS)",
-            "Internação Hopitalar", "Pressão arterial Baixa ou Alta", "PNE (Necessidades Especiais)",
-            "Problema Cardíaco (Coração)", "Problema Hepático (Fígado)", "Problema Homonal",
-            "Problema Renal (Rim)", "Sífilis", "Tabagismo (Fuma)", "Tatuagem", "Tuberculose", "Tumor",
-            "Outras drogas"
+            "Alcoolismo", "Alergia", "Anemia", "Asma", "Cicatrização Ruim", "Cirurgia Realizada", 
+            "Desmaios", "Distúrbios Psicológicos", "Endocardite Bacteriana", "Epilepsia", "Febre Reumática", 
+            "Gravidez", "Hepatite", "Herpes/Afta", "HIV (AIDS)", "Internação Hopitalar", "Pressão arterial Baixa ou Alta", 
+            "PNE (Necessidades Especiais)", "Problema Cardíaco", "Problema Hepático", "Problema Homonal", "Problema Renal", 
+            "Sífilis", "Tabagismo", "Tatuagem", "Tuberculose", "Tumor", "Outras drogas"
         ]
         if escolhida is not None:
             return lista[escolhida - 1]

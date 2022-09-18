@@ -1,10 +1,11 @@
-from src.pessoa.Pessoa import Pessoa
+from src.pessoa.pessoa import Pessoa
 
 class Paciente(Pessoa):
+    # Construtor
     def __init__(self, nome: str, cpf: str, sexo: str, data_nascimento: str,
                  telefone: str, altura: float, peso: float, endereco: str, 
                  nro_sus: str):
-
+        # Construtor herdado
         super().__init__(nome, cpf, sexo, data_nascimento, endereco, telefone)
         self.altura = altura
         self.peso = peso

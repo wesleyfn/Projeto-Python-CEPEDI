@@ -1,7 +1,5 @@
 import json, os
-from src.pessoa.Especialista import Especialista
-from src.pessoa.Paciente import Paciente
-from src.prontuario.Prontuario import Prontuario
+from src.prontuario.prontuario import Prontuario
 
 def carregar_json(name_json):
     path = os.path.abspath(f"../data/{name_json}.json")
@@ -14,7 +12,7 @@ def carregar_json(name_json):
         with open(path, 'w', encoding='utf-8') as json_file:
             return None
 
-def salvar_json(pessoa, nome_objeto) -> None:
+def salvar_pessoa(pessoa, nome_objeto) -> None:
     pessoas = carregar_json(nome_objeto)
     
     if pessoas is None:

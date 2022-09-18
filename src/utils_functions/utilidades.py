@@ -1,8 +1,8 @@
-from src.pessoa.Pessoa import Pessoa
-from src.prontuario.Prontuario import Prontuario
-from src.utils_functions import load_save
-from src.pessoa.Especialista import Especialista
-from src.pessoa.Paciente import Paciente
+from src.pessoa.pessoa import Pessoa
+from src.prontuario.prontuario import Prontuario
+from src.utils_functions import carregar_salvar
+from src.pessoa.especialista import Especialista
+from src.pessoa.paciente import Paciente
 
 def limpar_console():
     print("\n" * 100)
@@ -93,7 +93,7 @@ def gerar_filtro(onde_buscar: str) -> dict:
 
 def buscar_pessoas(tipo_pessoa) -> list:
     filtro = gerar_filtro(tipo_pessoa)
-    pessoas = load_save.carregar_json(tipo_pessoa)
+    pessoas = carregar_salvar.carregar_json(tipo_pessoa)
     encontros = []
 
     if not pessoas:  # retorna []
@@ -147,19 +147,19 @@ def listar_encontrados(lista: Pessoa | list, tipo: str):
     barra()
 
 def mostrar_prontuario(prontuario: Prontuario):
-    pessoas = load_save.carregar_json("pacientes")
+    pessoas = carregar_salvar.carregar_json("pacientes")
     encontrada = None
     for pessoa in pessoas:
         if pessoa["cpf"] == prontuario.cpf:
             encontrada = pessoa
     
-    print(f"\n     Paciente: {encontrada['nome']:40} CPF: {encontrada['cpf']:21} SUS: {encontrada['nro_sus']}\n"
-            f"     Altura: {encontrada['altura']:.3}     Peso: {encontrada['peso']}     Sexo: {encontrada['sexo']:10}"  
-            f"Telefone: {encontrada['telefone']:15}\n     Responsável: {prontuario.nome_responsavel}\n"
+    print(f"\n     Paciente: {encontrada['nome']:40} CPF: {encontrada['cpf']:21}\n"
+            f"     Altura: {encontrada['altura']:.3}     Peso: {encontrada['peso']}    Sexo: {encontrada['sexo']:16}"  
+            f"Telefone: {encontrada['telefone']:15}\n     Responsável: {prontuario.nome_responsavel:37} SUS: {encontrada['nro_sus']}\n"
             f"     Endereço: {encontrada['endereco']}\n"
-            f"     Tipo de consulta: {prontuario.tipo_consulta:20} Procedimento: {prontuario.procedimento}\n"
+            f"     Tipo de consulta: {prontuario.tipo_consulta:32} Procedimento: {prontuario.procedimento}\n"
             f"     Patologias: {prontuario.mostrar_patologias_S()}\n"
-            f"     Especialista: {prontuario.nome_especialista:40} Data da consulta: {prontuario.data}\n")
+            f"     Especialista: {prontuario.nome_especialista:36} Data da consulta: {prontuario.data}\n")
     
     
     

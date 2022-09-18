@@ -1,5 +1,5 @@
-from src.utils_functions.utils import *
-from src.prontuario.Prontuario import Prontuario
+from src.utils_functions.utilidades import *
+from src.prontuario.prontuario import Prontuario
 
 def iniciando():
     limpar_console()
@@ -71,7 +71,7 @@ def menu_cadastro(ignore_print=-1):
                 especialista = Especialista(nome, cpf, sexo, data_nascimento, endereco,
                                             telefone, cro, especialidade, data_engresso)
 
-                load_save.salvar_json(especialista, "especialistas")
+                carregar_salvar.salvar_pessoa(especialista, "especialistas")
             case 2:
                 nome, cpf, sexo, data_nascimento, endereco, telefone = cadastro_pessoa()
                 altura = opcao('f', " > Digite a altura: ")
@@ -80,11 +80,11 @@ def menu_cadastro(ignore_print=-1):
                 paciente = Paciente(nome, cpf, sexo, data_nascimento,
                                     telefone, altura, peso, endereco, nro_sus)
 
-                load_save.salvar_json(paciente, "pacientes")
+                carregar_salvar.salvar_pessoa(paciente, "pacientes")
             case 3:
                 prontuario = cadastro_prontuario()
                 if prontuario:
-                    load_save.salvar_prontuario(prontuario)
+                    carregar_salvar.salvar_prontuario(prontuario)
             case 0:
                 return
         ignore_print = 0
@@ -117,7 +117,7 @@ def cadastro_prontuario():
         op = opcao('s', "\n > Paciente não encontrado, cadastrar novo paciente? [s/n]: ")
         if op.lower() in resposta_s: 
             menu_cadastro(2)
-            paciente_encontrado = load_save.carregar_json("pacientes")[-1]
+            paciente_encontrado = carregar_salvar.carregar_json("pacientes")[-1]
         else:
             return None
 
@@ -134,7 +134,7 @@ def cadastro_prontuario():
         op = opcao('s', "\n > Especialista não encontrado, cadastrar novo especialista? [s/n]: ")
         if op.lower() in resposta_s: 
             menu_cadastro(1)
-            especialista_encontrado = load_save.carregar_json("especialistas")[-1]
+            especialista_encontrado = carregar_salvar.carregar_json("especialistas")[-1]
         else:
             return None
 
@@ -193,15 +193,8 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
             print(pessoa)
 
         op = opcao('i', f" > Digite 1 para atualizar (0 para sair): ")
-        if op == 2:
-            pessoas = load_save.carregar_json(f"{tipo_pessoa}s")
-            for i, pessoa_atual in enumerate(pessoas):
-                if pessoa_atual == pessoa_selecionado:
-                    del pessoas[i]
-
-                    load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
-        elif op == 1:
-            pessoas = load_save.carregar_json(f"{tipo_pessoa}s")
+        if op == 1:
+            pessoas = carregar_salvar.carregar_json(f"{tipo_pessoa}s")
             for i, pessoa_atual in enumerate(pessoas):
                 if pessoa_atual == pessoa_selecionado:
                     for chave, valor in pessoa_selecionado.items():
@@ -212,10 +205,10 @@ def encontrar_listando(tipo_pessoa, return_busca=False) -> Paciente | None:
                             novo_valor = None
 
                             if isinstance(valor, float):
-                                novo_valor = opcao("i", f" > Digite o novo {chave}: ")
+                                novo_valor = opcao("f", f" > Digite o novo {chave}: ")
                             elif isinstance(valor, str):
                                 novo_valor = opcao("s", f" > Digite o novo {chave}: ")
 
                             pessoa_selecionado[chave] = novo_valor
                     pessoas[i] = pessoa_selecionado
-                load_save.atualizar_registro(tipo_pessoa + "s", pessoas)
+                carregar_salvar.atualizar_registro(tipo_pessoa + "s", pessoas)
